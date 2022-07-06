@@ -1,0 +1,302 @@
+/*remove left navigation box from the SharePoint page*/
+#sideNavBox{
+  display: none !important;
+}
+
+#contentBox{
+  margin-left: 5px !important;
+}
+
+.block {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  text-align: center;
+  color:white;
+  
+}
+
+.header{
+  background-color: grey;
+
+}
+
+.hidden{
+  display: none !important;
+}
+
+
+.headerColumn{
+  font-size: 1.0625rem;
+  font-weight: bold;
+  color: #0078d7; 
+}
+
+.button-approve{
+  background-color: green;
+  margin-right: 20px;
+  color: black;
+}
+
+.button-reject{
+  background-color: red;
+  margin-right: 20px;
+  color: black;
+}
+
+.button-on-hold{
+  background-color:	rgb(255,255,102);
+  color: black;
+}
+.navbar {
+  position: relative;
+  min-height: 50px;
+  margin-bottom: 24px;
+  border: 1px solid transparent;
+  background-color: #464957;
+  border-color: #373a45;
+  box-shadow: 0px 2px 2px 0px rgba(0,0,0,0.26);
+  color: #fff;
+}
+
+.navbar-brand {
+  float: left;
+  padding: 15px;
+  font-size: 18px;
+  line-height: 20px;
+  height: 50px;
+}
+
+.navbar .navbar-text {
+  font-size: 18px;
+  margin: 22px 15px 21px;
+  line-height: 20px;
+  font-weight: 600;
+}
+
+/*@media all and (min-width:768px)*/
+.navbar-right {
+  float: right !important;
+  margin-right: 15px;
+  line-height: 1.4285;
+}
+
+.navbar-left {
+  float: right !important;
+  margin-left: 15px;
+  line-height: 1.4285;
+}
+
+.link {
+  color: #fff;
+}
+
+footer {
+  margin: 0 auto;
+  position: fixed;
+  font-weight: 500;
+  bottom: 0;
+  width: 100%;
+  color: #666;
+  background-color: #f0f0f0;
+  padding: 26px 0 17px;
+  z-index: 10;
+}
+
+footer p {
+  margin: 0 50px 10px;
+}
+
+.required {
+  color: #bf0000;
+}
+
+.pad-top {
+  padding-top: 16px;
+}
+
+
+.pad-bottom {
+  padding-bottom: 100px;
+}
+
+.pad-left {
+  padding-left: 16px;
+}
+
+.pad-right {
+  padding-right: 16px;
+}
+
+
+.inline {
+  display: inline-block;
+}
+
+
+.scroll-box {
+  height:150px; 
+  overflow-y:scroll;
+}
+
+.right-aligned {
+  float: right;
+  padding: 4px;
+  margin: 4px;
+}
+
+.admin-settings-link {
+  color: #fff;
+}
+
+.admin-settings-link:hover {
+  cursor: pointer;  
+}
+
+/* MODAL DIALOGS CLASSES */
+.modal-container { 
+  width: 600px;
+  height: 400px;
+  padding: 20px;
+}
+
+
+.modal-body {
+  padding: 20px;
+}
+
+
+.not-visible {
+  display: none !important;
+}
+
+/* FORM VIEWS */
+.row-delimited {
+  border-bottom: rgb(244,244,244) solid 1px;
+}
+
+
+/* Labels columns to have different color */
+.themed {
+  background-color: #eaeaea;
+}
+
+
+/* Command bar to behave like a pivot */
+.volvo-pivotLike-Container {
+  background-color: white !important;
+  color: rgb(51, 51, 51);
+}
+
+.volvo-pivotLike-Container div div {
+  margin-left: 0px;
+  margin-right: 8px;
+}
+
+.volvo-pivotLike-Item {
+  cursor: pointer;
+}
+
+.volvo-pivotLike-Item button {
+  font-size: 17px;
+}
+
+.volvo-pivotLike-Item button:hover {
+  background-color: white !important;
+}
+
+
+
+.small-container {
+  width: 500px;
+}
+
+/*Styling print*/
+@media print { 
+ 
+  /*Setting for print page*/
+  @page { 
+    size: auto;
+    margin: 5mm 0 0 0;
+  }
+
+  body {
+    margin: 10px;
+  }
+
+  /*Hide navigation, menu, footer and buttons*/
+  nav, div.volvo-pivotLike-Container, .ms-Button, footer {
+      display: none;
+  }
+
+  /* remove first occurence of line */
+  .row-delimited:first-of-type {
+    display: none;
+  }
+
+  /* remove approval controls
+   that are not needed in print view */
+  .row-approval-controls {
+    display:none;
+  }
+
+  /* top header */
+  h2.title {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 0.8rem;
+  }
+
+  h3.headerColumn {
+    margin:0;
+    font-size: 0.8rem;   
+  }
+  /* labels */
+  .headerColumn {
+    padding: 0;
+  }
+
+  .ms-Label {
+    font-size: 0.7rem; 
+    padding: 2px !important;
+  }
+
+  .ms-formlabel {
+    font-size: 0.7rem; 
+  }
+
+  .ms-Link {
+    font-size: 0.7rem; 
+  }
+
+  /* To style on Grid */
+  .ms-Grid{
+    position: relative;     
+  }
+
+  .ms-Grid-col{
+    font-size: 0.7rem; 
+  }
+  .ms-Checkbox {
+    padding: 2px 0 0 0;
+  }
+  /* command bar */
+  .row-commands {
+    display: none;
+  }
+  /*Overwrite office-ui-fabric on @media styling To avoid break line in Portrait mode*/
+  .ms-lg2, .ms-lg3, .ms-lg4, .ms-lg5, .ms-lg6, .ms-lg9{
+    width: 50%;
+  }
+  /* remove paddings to squeeze content */
+  .pad-top {
+    padding: 0;
+  }
+  /* add some space in tables */
+  .table-approval-tasks .pad-top {
+    padding-top: 5px;
+  }
+
+  .table-approvers .pad-top {
+    padding-top: 5px;
+  }
+}

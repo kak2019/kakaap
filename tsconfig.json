@@ -1,0 +1,38 @@
+{
+  "extends": "./node_modules/@microsoft/rush-stack-compiler-3.3/includes/tsconfig-web.json",
+  "compilerOptions": {
+    "target": "es5",
+    "forceConsistentCasingInFileNames": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "jsx": "react",
+    "declaration": true,
+    "sourceMap": true,
+    "experimentalDecorators": true,
+    "skipLibCheck": true,
+    "outDir": "lib",
+    "inlineSources": false,
+    "strictNullChecks": false,
+    "noUnusedLocals": false,
+    "typeRoots": [
+      "./node_modules/@types",
+      "./node_modules/@microsoft"
+    ],
+    "types": [
+      "es6-promise",
+      "webpack-env"
+    ],
+    "lib": [
+      "es5",
+      "dom",
+      "es2015.collection"
+    ]
+  },
+  "include": [
+    "src/**/*.ts", "src/webparts/shRequestForm/components/AppContent.tsx", "src/webparts/shRequestForm/components/NewForm.tsx", "src/webparts/shRequestForm/components/EditForm.tsx", "src/webparts/shRequestForm/components/DisplayForm.tsx", "src/webparts/shRequestForm/components/AppSidebar.tsx", "src/webparts/shRequestForm/components/AppHeader.tsx", "src/webparts/shRequestForm/components/AppFooter.tsx", "src/webparts/shRequestForm/components/Menu.tsx", "src/webparts/shRequestForm/components/forms/HelpIcon.tsx", "src/webparts/shRequestForm/components/forms/FormLabel.tsx", "src/webparts/shRequestForm/components/forms/FormRow.tsx", "src/webparts/shRequestForm/components/forms/HeaderRow.tsx", "src/webparts/shRequestForm/components/forms/ErrorMessageBox.tsx", "src/webparts/shRequestForm/components/forms/LoadingBox.tsx", "src/webparts/shRequestForm/components/forms/ValidationMessage.tsx", "src/webparts/shRequestForm/components/forms/FilesList.tsx", "src/webparts/shRequestForm/components/forms/CheckboxWithTextField.tsx", "src/webparts/shRequestForm/components/forms/CheckboxGroup.tsx", "src/webparts/shRequestForm/components/forms/ConfirmationBox.tsx", "src/webparts/shRequestForm/components/forms/SegmentPicker.tsx", "src/webparts/shRequestForm/components/forms/SuccessConfirmationBox.tsx", "src/webparts/shRequestForm/components/forms/ApproversTable.tsx", "src/webparts/shRequestForm/components/forms/parmaNumberPicker.tsx", "src/webparts/shRequestForm/components/forms/PeoplePicker.tsx", "src/webparts/shRequestForm/components/forms/ApprovalSection.tsx", "src/webparts/shRequestForm/components/forms/NextApproverPicker.tsx"
+  ],
+  "exclude": [
+    "node_modules",
+    "lib"
+  ]
+}
