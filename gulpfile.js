@@ -29,8 +29,8 @@ build.configureWebpack.setConfig({
         } else {
             // specify dev settings here
             defineOptions = {
-                'azureFunctionBaseUrl': JSON.stringify('https://app-shared-svc-parma-dev.azurewebsites.net'),
-                'aadClientId': JSON.stringify('6f441754-1997-4efd-9e60-7a02ceabd8f6'),
+                'azureFunctionBaseUrl': JSON.stringify('https://app-shared-svc-ud-parma-dev.azurewebsites.net'),
+                'aadClientId': JSON.stringify('b407b2b3-b500-4ea9-92f1-ca4c28558347'),
                 'isDev':JSON.stringify(true),
             }
         }
