@@ -8,8 +8,8 @@ export class HostSettings {
 const appConfig = {
     isDev: HostSettings.IsDev, 
     wfSubscriptionId: '03c1d443-ab11-47f6-a542-ef4edececee9',
-    parmaApiFilter: 'https://app-shared-svc-parma-dev.azurewebsites.net/api/getparma/?q=',//'https://sp-api.srv.volvo.com/parma/api/getid?idlength=5&$top=10&startswith=',
-    parmaApi: 'https://app-shared-svc-parma-dev.azurewebsites.net/api/getparma',//'https://sp-api.srv.volvo.com/parma/api/getid/',
+    parmaApiFilter: 'https://app-shared-svc-ud-parma-dev.azurewebsites.net//api/getparma/?q=',//'https://sp-api.srv.volvo.com/parma/api/getid?idlength=5&$top=10&startswith=',
+    parmaApi: 'https://app-shared-svc-ud-parma-dev.azurewebsites.net/api/getparma', 
     approvers: [
     // Test approvers
     // TODO 
