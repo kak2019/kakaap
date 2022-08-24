@@ -21,7 +21,7 @@ const appConfig = {
     ],
     managerName : "Elnur Babayev",
     managerLoginName: "ContentServices.Mail@udtrucks.se",
-    sourcingFilePath: "https://purchasingagreement-test.sp.srv.volvo.com/Shared%20Documents/SOURCING%20OR%20NON%20SOURCING.DOCX"
+    sourcingFilePath: "https://udtrucks.sharepoint.com/sites/app-ap-agreements-test/Shared%20Documents/SOURCING%20OR%20NON%20SOURCING.DOCX"
 };
 
 export { appConfig };

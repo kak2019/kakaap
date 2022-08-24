@@ -63,7 +63,7 @@ class ApproversTable extends React.Component<IApproversTableProps, {}> {
                     Agreement Controller
                     </div>
                     <div className="ms-Grid-col ms-sm9 ms-formlabel">
-                    <Link href='mailto:Group.agreementcontroller@volvo.com'>Application PAM - Partner Agreement Management</Link>
+                    <Link href='mailto:Group.agreementcontroller@udtrucks.se'>Application PAM - Partner Agreement Management</Link>
                     </div>
                 </div>
 
@@ -100,7 +100,7 @@ class ApproversTable extends React.Component<IApproversTableProps, {}> {
                     Sourcing Controller
                     </div>
                     <div className="ms-Grid-col ms-sm9 ms-formlabel">
-                    <Link href='mailto:group.agreementcontroller@volvo.com'> Application PAM - Partner Agreement Management</Link>
+                    <Link href='mailto:group.agreementcontroller@udtrucks.se'> Application PAM - Partner Agreement Management</Link>
                     </div>
                     </div>
                 }
