@@ -19,7 +19,7 @@ stages:
       - template: ./azure-pipelines-build.yml
         parameters:
           name: 'build_solution'
-          variable_group_name: 'AP-Agreements - Frontend SharePoint App (DEV)'
+          variable_group_name: 'AP-Agreements - Frontend SharePoint App - DEV'
   
   - stage: 'deploy_dev'
     condition: and(succeeded('build_dev'), startsWith(variables['Build.SourceBranch'], 'refs/heads/develop') )
@@ -28,7 +28,7 @@ stages:
         parameters:
           job_name: deploy_solution
           target_environment: 'AP-Agreements-DEV'
-          variable_group_name: 'AP-Agreements - Frontend SharePoint App (DEV)'  
+          variable_group_name: 'AP-Agreements - Frontend SharePoint App - DEV'  
   
   - stage: 'build_test'
     condition: eq(variables['Build.SourceBranchName'], 'develop')
@@ -37,7 +37,7 @@ stages:
       - template: ./azure-pipelines-build.yml
         parameters:
           name: 'build_solution'
-          variable_group_name: 'AP-Agreements - Frontend SharePoint App (TEST)'
+          variable_group_name: 'AP-Agreements - Frontend SharePoint App - TEST'
   
   - stage: 'deploy_test'
     condition: and(succeeded('build_test'), startsWith(variables['Build.SourceBranch'], 'refs/heads/develop') )
@@ -46,7 +46,7 @@ stages:
         parameters:
           job_name: deploy_solution
           target_environment: 'AP-Agreements-TEST'
-          variable_group_name: 'AP-Agreements - Frontend SharePoint App (TEST)'
+          variable_group_name: 'AP-Agreements - Frontend SharePoint App - TEST'
           
   - stage: 'build_qa'
     condition: startsWith(variables['Build.SourceBranch'], 'refs/heads/release')
@@ -55,7 +55,7 @@ stages:
       - template: ./azure-pipelines-build.yml
         parameters:
           name: 'build_solution'
-          variable_group_name: 'AP-Agreements - Frontend SharePoint App (QA)'
+          variable_group_name: 'AP-Agreements - Frontend SharePoint App - QA'
           
   - stage: 'deploy_qa'
     condition: and(succeeded('build_qa'), startsWith(variables['Build.SourceBranch'], 'refs/heads/release') )
@@ -64,7 +64,7 @@ stages:
         parameters:
           job_name: deploy_solution
           target_environment: 'AP-Agreements-QA'
-          variable_group_name: 'AP-Agreements - Frontend SharePoint App (QA)'
+          variable_group_name: 'AP-Agreements - Frontend SharePoint App - QA'
           
   - stage: 'build_prod'
     condition:  startsWith(variables['Build.SourceBranch'], 'refs/heads/master')
@@ -73,7 +73,7 @@ stages:
       - template: ./azure-pipelines-build.yml
         parameters:
           name: 'build_solution'
-          variable_group_name: 'AP-Agreements - Frontend SharePoint App (PROD)'
+          variable_group_name: 'AP-Agreements - Frontend SharePoint App - PROD'
           
   - stage: 'deploy_prod'
     condition: and(succeeded('build_prod'), startsWith(variables['Build.SourceBranch'], 'refs/heads/master') )
@@ -82,4 +82,4 @@ stages:
         parameters:
           job_name: deploy_solution
           target_environment: 'AP-Agreements-PROD'
-          variable_group_name: 'AP-Agreements - Frontend SharePoint App (PROD)'
+          variable_group_name: 'AP-Agreements - Frontend SharePoint App - PROD'
