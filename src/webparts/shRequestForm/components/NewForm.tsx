@@ -69,6 +69,7 @@ const NewForm = observer(class NewFormClass extends React.Component<INewFormProp
 
   public componentDidMount() {
     this.props.store.setCurrentUser(this.props.user.Name, this.props.user.LoginName);
+    this.props.store.getGroupUsers();
   }
 
   public makeDirty() {
@@ -78,7 +79,7 @@ const NewForm = observer(class NewFormClass extends React.Component<INewFormProp
   public render():JSX.Element {
     return (
       <div className='ms-Grid pad-left'>
-        <HeaderRow text='GTP - Purchasing Agreement Management' />
+        <HeaderRow text='UD - Purchasing Agreement Management' />
         <FormRow label='Requestor' required={false}
           tooltip=''>
           {this.props.store.RequestorName !== '' &&
@@ -401,7 +402,7 @@ const NewForm = observer(class NewFormClass extends React.Component<INewFormProp
               />
             </div>
           </div>
-          <div className='ms-Grid-row pad-top'>
+          {/* <div className='ms-Grid-row pad-top'>
             <div className="ms-Grid-col ms-sm12 ms-lg3 ms-formlabel">
               For
             </div>
@@ -414,7 +415,7 @@ const NewForm = observer(class NewFormClass extends React.Component<INewFormProp
                 onChanged={(item) => { this.props.store.onFunctionSelected(item); }}
               />
             </div>
-          </div>
+          </div> */}
         </FormRow>
 
         <FormRow label='Valid From'
@@ -723,6 +724,7 @@ const NewForm = observer(class NewFormClass extends React.Component<INewFormProp
               pdRepresentative={this.props.store.ProductDevelopmentName}
               level={this.props.store.approvalLevel}
               approvers={this.props.store.ApproverChain}
+              agmntControllersName={this.props.store.AgmntControllersName}
             />
           }
         </FormRow>

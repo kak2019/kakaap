@@ -6,6 +6,7 @@ interface IApproversTableProps {
     level: any;
     approvers: any;
     pdRepresentative: any;
+    agmntControllersName:any;
 }
 
 class ApproversTable extends React.Component<IApproversTableProps, {}> {
@@ -15,6 +16,7 @@ class ApproversTable extends React.Component<IApproversTableProps, {}> {
         const level = this.props.level;
         const approvers = this.props.approvers;
         const pdRepresentative = this.props.pdRepresentative;
+        const agmntControllersName=this.props.agmntControllersName;
 
         const authorities = ['Manager', 'Vice President', 'Senior Vice President', 'Executive Vice President'];
         const approversDisplay = [];
@@ -57,24 +59,29 @@ class ApproversTable extends React.Component<IApproversTableProps, {}> {
 
         return (
             <div className="table-approvers">
-                <h3 className="headerColumn">Approvers Chain</h3>
+                
                 <div className='ms-Grid-row pad-top'>
                     <div className="ms-Grid-col ms-sm3 ms-formlabel">
-                    Agreement Controller
+                        Agreement Controller
                     </div>
                     <div className="ms-Grid-col ms-sm9 ms-formlabel">
-                    <Link href='mailto:Group.agreementcontroller@udtrucks.se'>Application PAM - Partner Agreement Management</Link>
+                            {agmntControllersName.length>0 &&
+                    agmntControllersName.map((user) => {
+                        return (
+                            <div><Link href={`mailto:${user.email}`}>{user.name}</Link></div>
+                        );
+                    })}  
                     </div>
                 </div>
 
                 {type === 'Development' && pdRepresentative !== '' &&       //pdRepresentative will be blank for 'Sourcing Decision'
-                <div className='ms-Grid-row pad-top'>
-                    <div className="ms-Grid-col ms-sm3 ms-formlabel">
-                    Product Development
+                    <div className='ms-Grid-row pad-top'>
+                        <div className="ms-Grid-col ms-sm3 ms-formlabel">
+                            Product Development
                     </div>
-                    <div className="ms-Grid-col ms-sm9 ms-formlabel">
-                    {pdRepresentative}
-                    </div>
+                        <div className="ms-Grid-col ms-sm9 ms-formlabel">
+                            {pdRepresentative}
+                        </div>
                     </div>
                 }
 
@@ -82,13 +89,13 @@ class ApproversTable extends React.Component<IApproversTableProps, {}> {
                     approversDisplay.map(a => {
                         return (
                             <div key={a.authorityIndex} className='ms-Grid-row pad-top'>
-                     <div className="ms-Grid-col ms-sm3 ms-formlabel">
+                                <div className="ms-Grid-col ms-sm3 ms-formlabel">
                                     {authorities[a.authorityIndex]}
-                    </div>
-                    <div className="ms-Grid-col ms-sm9 ms-formlabel">
+                                </div>
+                                <div className="ms-Grid-col ms-sm9 ms-formlabel">
                                     {a.approver.Name}
-                    </div>
-                </div>
+                                </div>
+                            </div>
                         );
                     })
                 }
@@ -96,16 +103,16 @@ class ApproversTable extends React.Component<IApproversTableProps, {}> {
                 {level === 'Sourcing Controller'
                     &&
                     <div className='ms-Grid-row pad-top'>
-                    <div className="ms-Grid-col ms-sm3 ms-formlabel">
-                    Sourcing Controller
+                        <div className="ms-Grid-col ms-sm3 ms-formlabel">
+                            Sourcing Controller
                     </div>
-                    <div className="ms-Grid-col ms-sm9 ms-formlabel">
-                    <Link href='mailto:group.agreementcontroller@udtrucks.se'> Application PAM - Partner Agreement Management</Link>
-                    </div>
+                        <div className="ms-Grid-col ms-sm9 ms-formlabel">
+                            <Link href='mailto:prabha.a@udtrucks.com;aruna.joshi@udtrucks.com'> Prabha A / Aruna Joshi</Link>
+                        </div>
                     </div>
                 }
 
-          </div>
+            </div>
         );
     }
 }

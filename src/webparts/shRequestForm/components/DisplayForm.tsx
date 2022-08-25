@@ -39,6 +39,7 @@ const DisplayForm = observer(class DisplayFormClass extends React.Component<IDis
 
     public componentWillMount() {
         this.props.store.getRequest(this.props.id);
+        this.props.store.getGroupUsers();
     }
 
     public render() {
@@ -251,14 +252,14 @@ const DisplayForm = observer(class DisplayFormClass extends React.Component<IDis
                             <Label>{this.props.store.FunctionBy}</Label>
                         </div>
                     </div>
-                    <div className='ms-Grid-row pad-top'>
+                    {/* <div className='ms-Grid-row pad-top'>
                         <div className="ms-Grid-col ms-sm12 ms-lg3 ms-formlabel">
                             For
                         </div>
                         <div className="ms-Grid-col ms-sm12 ms-lg9 ms-formlabel">
                         <Label>{this.props.store.FunctionFor.slice().join(', ')}</Label>
                         </div>
-                    </div>
+                    </div> */}
                 </FormRow>
 
                 <FormRow label='Valid From'>
@@ -439,6 +440,7 @@ const DisplayForm = observer(class DisplayFormClass extends React.Component<IDis
                     pdRepresentative = {this.props.store.ProductDevelopmentName}
                     level={this.props.store.approvalLevel}
                     approvers={this.props.store.ApproverChain}
+                    agmntControllersName={this.props.store.AgmntControllersName}
                 />
                 }
               

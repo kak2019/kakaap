@@ -1,10 +1,5 @@
-
 const functions = [
-    "Buses",
-    "GTA & JVs",
-    "GTP",
-    "Penta",
-    "VCE",
+    "UD Trucks",
 ];
 
 const functionByOptions = functions.map((item)=>
