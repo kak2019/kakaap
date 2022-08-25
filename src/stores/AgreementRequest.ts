@@ -1427,7 +1427,6 @@ class AgreementRequestClass {
                 return users[i];
             }
             }
-
             if (isUserAtGivenLevel(buyerProperties, managerLevel)) {
               return buyerProperties;
             }
@@ -1435,13 +1434,31 @@ class AgreementRequestClass {
             return null;
           };
 
+          // const findManagerAtGivenLevel = (users: any[], managerLevel: number) => {
+          //   for (let i = 0; i < users.length; i++) {
+          //     if (isUserAtGivenLevel(users[i], managerLevel)) {
+          //       return users[i];
+          //   }
+          //   }
+
+          //   if (isUserAtGivenLevel(buyerProperties, managerLevel)) {
+          //     return buyerProperties;
+          //   }
+
+          //   return null;
+          // };
+
           Promise.all(hierarchyPropsPromises)
             .then(managersProps => {
               const approvers = new Array(4);// Array.from({length: 4});//TODO-fix array.from
-              approvers[0] = findManagerAtGivenLevel(managersProps, "N-4");
-              approvers[1] = findManagerAtGivenLevel(managersProps, "N-3");
-              approvers[2] = findManagerAtGivenLevel(managersProps, "N-2");
-              approvers[3] = findManagerAtGivenLevel(managersProps, "N-1");
+
+              console.log("managersProps array");
+              console.log(managersProps);
+
+              approvers[0] = findManagerAtGivenLevel(managersProps, "N-4"); //N-4
+              approvers[1] = findManagerAtGivenLevel(managersProps, "N-3"); //N-3
+              approvers[2] = findManagerAtGivenLevel(managersProps, "N-2"); //N-2
+              approvers[3] = findManagerAtGivenLevel(managersProps, "N-1"); //N-1
 
               const manager = managersProps.length !== 0 ? managersProps[managersProps.length - 1] : buyerProperties; //buyerProperties for EVP without CEO
 

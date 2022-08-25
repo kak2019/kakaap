@@ -14,12 +14,12 @@ const appConfig = {
     // Test approvers
     // TODO 
     // Fetch this from SharePoint Settings List
-        {"Id":"VCN\\a282770","Name":"Babayev Elnur","Email":"ContentServices.Mail@udtrucks.se"},
-        {"Id":"VCN\\A235757","Name":"Francisco Seidel Coitinho da Silva","Email":"ContentServices.Mail@udtrucks.se"},
-        {"Id":"VCN\\A237029","Name":"Nesarikar Sagar","Email":"ContentServices.Mail@udtrucks.se"},
-        {"Id":"VCN\\A305854","Name":"Skrzypek Krzysztof","Email":"ContentServices.Mail@udtrucks.se"}
+        {"Id":"V0CN284","Name":"Content Services1","Email":"ContentServices.Mail@udtrucks.se"},
+        {"Id":"V0CN284","Name":"Content Services2","Email":"ContentServices.Mail@udtrucks.se"},
+        {"Id":"V0CN284","Name":"Content Services3","Email":"ContentServices.Mail@udtrucks.se"},
+        {"Id":"V0CN284","Name":"Content Services4","Email":"ContentServices.Mail@udtrucks.se"}
     ],
-    managerName : "Elnur Babayev",
+    managerName : "Content Services Manager",
     managerLoginName: "ContentServices.Mail@udtrucks.se",
     sourcingFilePath: "https://udtrucks.sharepoint.com/sites/app-ap-agreements-test/Shared%20Documents/SOURCING%20OR%20NON%20SOURCING.DOCX"
 };
