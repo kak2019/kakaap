@@ -66,6 +66,7 @@ const EditForm = observer(class EditFormClass extends React.Component<IEditFormP
 
     public componentWillMount() {
         this.props.store.getRequest(this.props.id);
+        this.props.store.getGroupUsers();
     }
 
 
@@ -416,7 +417,7 @@ const EditForm = observer(class EditFormClass extends React.Component<IEditFormP
                             />
                         </div>
                     </div>
-                    <div className='ms-Grid-row pad-top'>
+                    {/* <div className='ms-Grid-row pad-top'>
                         <div className="ms-Grid-col ms-sm12 ms-lg3 ms-formlabel">
                             For
             </div>
@@ -429,7 +430,7 @@ const EditForm = observer(class EditFormClass extends React.Component<IEditFormP
                                 onChanged={(item) => { this.props.store.onFunctionSelected(item); }}
                             />
                         </div>
-                    </div>
+                    </div> */}
                 </FormRow>
 
                 <FormRow label='Valid From'
@@ -762,6 +763,7 @@ const EditForm = observer(class EditFormClass extends React.Component<IEditFormP
                             pdRepresentative={this.props.store.ProductDevelopmentName}
                             level={this.props.store.approvalLevel}
                             approvers={this.props.store.ApproverChain}
+                            agmntControllersName={this.props.store.AgmntControllersName}
                         />
                     }
                 </FormRow>

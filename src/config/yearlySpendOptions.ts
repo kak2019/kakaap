@@ -1,8 +1,7 @@
 const yearlySpends = [
-  '< 500 000 Manager',
-  '< 3 000 000 VP',
-  '< 10 000 000 SVP',
-  '>= 10 000 000 EVP'
+  '< 500 000 SEK Manager',
+  '< 3 000 000 SEK VP',
+  '>= 3 000 000 SEK SVP'
 ];
 
 const yearlySpendOptions = yearlySpends.map((item)=>
