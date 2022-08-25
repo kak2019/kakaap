@@ -1423,8 +1423,8 @@ class AgreementRequestClass {
 
           const findManagerAtGivenLevel = (users: any[], managerLevel: number) => {
 
-            if(users.length >= managerLevel + 1){
-              return users[users.length-managerLevel-1];
+            if(users.length >= managerLevel){
+              return users[users.length-managerLevel];
             } 
             // if (isUserAtGivenLevel(buyerProperties, managerLevel)) {
             //   return buyerProperties;
