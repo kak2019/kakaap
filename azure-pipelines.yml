@@ -13,7 +13,7 @@ trigger:
       
 stages:
   - stage: 'build_dev'
-    condition: eq(variables['Build.SourceBranchName'], 'refs/heads/feature')
+    condition: eq(variables['Build.SourceBranch'], 'refs/heads/feature')
     displayName: build_dev
     jobs:
       - template: ./azure-pipelines-build.yml
@@ -31,7 +31,7 @@ stages:
           variable_group_name: 'AP-Agreements - Frontend SharePoint App - DEV'  
   
   - stage: 'build_test'
-    condition: eq(variables['Build.SourceBranchName'], 'refs/heads/develop')
+    condition: eq(variables['Build.SourceBranch'], 'refs/heads/develop')
     displayName: build_test
     jobs:
       - template: ./azure-pipelines-build.yml
