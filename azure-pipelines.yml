@@ -13,7 +13,7 @@ trigger:
       
 stages:
   - stage: 'build_dev'
-    condition: eq(variables['Build.SourceBranchName'], 'develop')
+    condition: eq(variables['Build.SourceBranchName'], 'refs/heads/feature')
     displayName: build_dev
     jobs:
       - template: ./azure-pipelines-build.yml
@@ -22,7 +22,7 @@ stages:
           variable_group_name: 'AP-Agreements - Frontend SharePoint App - DEV'
   
   - stage: 'deploy_dev'
-    condition: and(succeeded('build_dev'), startsWith(variables['Build.SourceBranch'], 'refs/heads/develop') )
+    condition: and(succeeded('build_dev'), startsWith(variables['Build.SourceBranch'], 'refs/heads/feature') )
     jobs:
       - template: ./azure-pipelines-deploy.yml
         parameters:
@@ -31,7 +31,7 @@ stages:
           variable_group_name: 'AP-Agreements - Frontend SharePoint App - DEV'  
   
   - stage: 'build_test'
-    condition: eq(variables['Build.SourceBranchName'], 'develop')
+    condition: eq(variables['Build.SourceBranchName'], 'refs/heads/develop')
     displayName: build_test
     jobs:
       - template: ./azure-pipelines-build.yml
