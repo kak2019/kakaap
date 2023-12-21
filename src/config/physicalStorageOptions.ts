@@ -1,6 +1,6 @@
 const physicalStorages = [
-    // "Ageo",
-    "Bangalore"
+     "Ageo",
+    //"Bangalore"
     // "Curitiba",
     // "Gothenburg",
     // "Greensboro",

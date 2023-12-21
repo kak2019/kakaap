@@ -304,6 +304,14 @@ class AgreementRequestClass {
       && this.DecisionType === 'Sourcing Decision'
     );
   }
+  public get showStrategic() {
+    return (!(this.AgreementType === 'Confidentiality' || this.AgreementType === 'Parental Guarantee')
+      && this.DecisionType === 'Sourcing Decision'
+    );
+  }
+  public get showDeviation() {
+    return (this.AgreementType === 'Confidentiality');
+  }
 
   public get showContractSpend() { 
     return (!(this.AgreementType === 'Confidentiality' || this.AgreementType === 'Parental Guarantee')
@@ -356,9 +364,9 @@ class AgreementRequestClass {
       }
       if(!(this.AgreementType == "Confidentiality" || this.AgreementType === "Parental Guarantee") ){
         switch(this.contractSpend){
-          case '< 75m JPY' : approvalLvl = 'Manager';break;
-          case '< 350M JPY' : approvalLvl = "Vice President";break;
-          case 'Unlimted' : approvalLvl = "Senior Vice President";break;
+          case '< 75m JPY (B4-Manager)' : approvalLvl = 'Manager';break;
+          case '< 350M JPY (B3-VP)' : approvalLvl = "Vice President";break;
+          case 'Unlimted (B2-SVP)' : approvalLvl = "Senior Vice President";break;
         }
         }
     }

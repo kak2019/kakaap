@@ -226,28 +226,7 @@ const NewForm = observer(class NewFormClass extends React.Component<INewFormProp
             </div>
           </div>
         </FormRow>
-        <FormRow label='Strategic segment' required={false}
-          // tooltip='Provide Parma number and valid date of the agreement in VSIB which this amendment belongs to.'
-        > <div className='ms-Grid-row pad-top'>
-        <div className="ms-Grid-col ms-sm12 ms-lg3 ms-formlabel">
-          <Checkbox
-            checked={this.props.store.IsstrategicSegment}
-            onChange={(event, isChecked) => this.props.store.IsstrategicSegment = isChecked}
-          />
-        </div>
-        </div>
-          {/* <CheckboxWithTextField
-            checked={this.props.store.IsstrategicSegment}
-            store={this.props.store}
-            checkboxName={'IsstrategicSegment'}
-            textfieldName={'strategicSegmentDetails'}
-          />
-          <ValidationMessage
-            message='Strategic SegmentDetails required when checkbox checked'
-            dirty={this.state.dirty}
-            condition={this.props.store.strategicSegmentInvalid === true}
-          /> */}
-        </FormRow>
+       
         {this.props.store.AgreementType === 'Development' && 
         this.props.store.DecisionType === decisionTypeOptions[1].key &&   //Non Sourcing Decision
           <FormRow label='Please provide the id or name of the VP for the concerned Engineering department'
@@ -386,8 +365,29 @@ const NewForm = observer(class NewFormClass extends React.Component<INewFormProp
             condition={this.props.store.mainSegmentCodeInvalid === true}
           />
         </FormRow>
-
-        <FormRow label='Deviation for Agreement Template'
+        {this.props.store.showStrategic&&<FormRow label='Strategic segment' required={false}
+          // tooltip='Provide Parma number and valid date of the agreement in VSIB which this amendment belongs to.'
+        > <div className='ms-Grid-row pad-top'>
+        <div className="ms-Grid-col ms-sm12 ms-lg3 ms-formlabel">
+          <Checkbox
+            checked={this.props.store.IsstrategicSegment}
+            onChange={(event, isChecked) => this.props.store.IsstrategicSegment = isChecked}
+          />
+        </div>
+        </div>
+          {/* <CheckboxWithTextField
+            checked={this.props.store.IsstrategicSegment}
+            store={this.props.store}
+            checkboxName={'IsstrategicSegment'}
+            textfieldName={'strategicSegmentDetails'}
+          />
+          <ValidationMessage
+            message='Strategic SegmentDetails required when checkbox checked'
+            dirty={this.state.dirty}
+            condition={this.props.store.strategicSegmentInvalid === true}
+          /> */}
+        </FormRow>}
+        {this.props.store.showDeviation &&<FormRow label='Deviation for Agreement Template'
           tooltip='Deviation from agreements template, If yes tick the box and attach deviation approvals'
           required={false}
          
@@ -418,7 +418,7 @@ const NewForm = observer(class NewFormClass extends React.Component<INewFormProp
               </div>
             }
           </div>
-        </FormRow>
+        </FormRow>}
 
         <FormRow label='Required Approval'  required={false}
           tooltip=''>

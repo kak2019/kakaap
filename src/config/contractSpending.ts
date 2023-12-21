@@ -4,9 +4,9 @@
 //   '>= 3 000 000 SEK SVP'
 // ];
 const contractlySpends = [
-  '< 75m JPY',
-  '< 350M JPY',
-  'Unlimted'
+  '< 75m JPY (B4-Manager)',
+  '< 350M JPY (B3-VP)',
+  'Unlimted (B2-SVP)'
 ];
 
 const contractSpendOptions = contractlySpends.map((item)=>
