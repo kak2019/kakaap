@@ -19,7 +19,7 @@ build.configureWebpack.setConfig({
         console.log(process.env);
         let defineOptions = {};
 
-        if (azureFunctionBaseUrl && azureFunctionBaseUrl && isDev !== "") {
+        if (azureFunctionBaseUrl && azureFunctionBaseUrl && isDev == "") {
             console.log('***********    Applying development settings to webpack *********************');
             defineOptions = {
                 'azureFunctionBaseUrl': JSON.stringify(azureFunctionBaseUrl),
@@ -31,7 +31,7 @@ build.configureWebpack.setConfig({
             defineOptions = {
                 'azureFunctionBaseUrl': JSON.stringify('https://app-shared-svc-ud-parma-dev.azurewebsites.net'),
                 'aadClientId': JSON.stringify('b407b2b3-b500-4ea9-92f1-ca4c28558347'),
-                'isDev':JSON.stringify(true),
+                'isDev':JSON.stringify(false),
             }
         }
 
@@ -43,10 +43,10 @@ build.configureWebpack.setConfig({
     }
 });
 
-/* fast-serve */
-const { addFastServe } = require("spfx-fast-serve-helpers");
-addFastServe(build);
-/* end of fast-serve */
+// /* fast-serve */
+// const { addFastServe } = require("spfx-fast-serve-helpers");
+// addFastServe(build);
+// /* end of fast-serve */
 
 build.initialize(require('gulp'));
 

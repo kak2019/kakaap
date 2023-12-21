@@ -39,6 +39,7 @@ import { functionByOptions } from '../../../config/functionOptions';
 import { physicalStorageOptions } from '../../../config/physicalStorageOptions';
 import { contactOptions } from '../../../config/contactOptions';
 import { appConfig } from "../../../config/app.config";
+import { contractSpendOptions } from '../../../config/contractSpending';
 
 interface INewFormProps
 {
@@ -225,7 +226,28 @@ const NewForm = observer(class NewFormClass extends React.Component<INewFormProp
             </div>
           </div>
         </FormRow>
-
+        <FormRow label='Strategic segment' required={false}
+          // tooltip='Provide Parma number and valid date of the agreement in VSIB which this amendment belongs to.'
+        > <div className='ms-Grid-row pad-top'>
+        <div className="ms-Grid-col ms-sm12 ms-lg3 ms-formlabel">
+          <Checkbox
+            checked={this.props.store.IsstrategicSegment}
+            onChange={(event, isChecked) => this.props.store.IsstrategicSegment = isChecked}
+          />
+        </div>
+        </div>
+          {/* <CheckboxWithTextField
+            checked={this.props.store.IsstrategicSegment}
+            store={this.props.store}
+            checkboxName={'IsstrategicSegment'}
+            textfieldName={'strategicSegmentDetails'}
+          />
+          <ValidationMessage
+            message='Strategic SegmentDetails required when checkbox checked'
+            dirty={this.state.dirty}
+            condition={this.props.store.strategicSegmentInvalid === true}
+          /> */}
+        </FormRow>
         {this.props.store.AgreementType === 'Development' && 
         this.props.store.DecisionType === decisionTypeOptions[1].key &&   //Non Sourcing Decision
           <FormRow label='Please provide the id or name of the VP for the concerned Engineering department'
@@ -278,6 +300,22 @@ const NewForm = observer(class NewFormClass extends React.Component<INewFormProp
             />
           </FormRow>
         }
+        {this.props.store.showContractSpend &&
+          <FormRow label='Contract Spending'
+            required={true} tooltip=''
+          >
+            <ChoiceGroup
+              required={true}
+              options={contractSpendOptions}
+              onChange={(event, option) => this.props.store.contractSpend = option.key}
+            />
+            <ValidationMessage
+              message='Contract Spent is required'
+              dirty={this.state.dirty}
+              condition={this.props.store.contractSpendInvalid === true}
+            />
+          </FormRow>
+        }
 
         {this.props.store.AgreementType === 'Price' &&
           <FormRow  required={false} 
@@ -315,7 +353,7 @@ const NewForm = observer(class NewFormClass extends React.Component<INewFormProp
             />
           </FormRow>
         }
-
+ 
         <FormRow label='Amendment' required={false}
           tooltip='Provide Parma number and valid date of the agreement in VSIB which this amendment belongs to.'
         >

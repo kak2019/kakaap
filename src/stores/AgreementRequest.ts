@@ -31,11 +31,16 @@ class AgreementRequestClass {
   @MobiX.observable private MiscApproverLoginName: any = '';
   @MobiX.observable private MiscApproverName: any = '';
   @MobiX.observable private YearlySpend: any = '';
+  //contract
+  @MobiX.observable private contractSpend: any = '';
   @MobiX.observable private IsPrice: boolean = false;
   @MobiX.observable private IsPriceOrSoftware: boolean = false;
   @MobiX.observable private PriceDetails: any = '';
   @MobiX.observable private RawMaterialDetails: any = '';
   @MobiX.observable private IsAmendment: boolean = false;
+  // new strategic
+  @MobiX.observable private IsstrategicSegment: boolean = false;
+  @MobiX.observable private strategicSegmentDetails: any = '';
   @MobiX.observable private AmendmentDetails: any = '';
   @MobiX.observable private MainSegmentCode: any = '';
   @MobiX.observable private IsDeviation: boolean = false;
@@ -293,9 +298,15 @@ class AgreementRequestClass {
     }
     else return null;
   }
-
+// this.DecisionType === 'Non Sourcing Decision'
   public get showYearlySpend() {
-    return ((this.AgreementType === 'Price' || this.AgreementType === 'Raw Material')
+    return (!(this.AgreementType === 'Confidentiality' || this.AgreementType === 'Parental Guarantee')
+      && this.DecisionType === 'Sourcing Decision'
+    );
+  }
+
+  public get showContractSpend() { 
+    return (!(this.AgreementType === 'Confidentiality' || this.AgreementType === 'Parental Guarantee')
       && this.DecisionType === 'Non Sourcing Decision'
     );
   }
@@ -326,12 +337,40 @@ class AgreementRequestClass {
 
 
   public get approvalLevel() {
-    let approvalLvl = 'Senior Vice President';
-    switch(this.YearlySpend){
-      case  '< 500 000 SEK Manager': approvalLvl = 'Manager'; break;
-      case '< 3 000 000 SEK VP': approvalLvl = 'Vice President'; break;
-      case '>= 3 000 000 SEK SVP': approvalLvl = 'Senior Vice President'; break;
+    //let approvalLvl = 'Senior Vice President';
+    let approvalLvl = 'Manager';
+    console.log("看见就要开心一点哦4!");
+    //pass
+    if(this.DecisionType ==="Sourcing Decision"){
+      switch(this.AgreementType){
+        case 'Confidentiality': this.IsDeviation?  approvalLvl = 'Manager' : approvalLvl = 'Agreement Controller';break;
+        case 'Parental Guarantee' : approvalLvl = 'Manager';break;
+      }
+      if(!(this.AgreementType == "Confidentiality" || this.AgreementType === "Parental Guarantee") ){
+        this.IsstrategicSegment? approvalLvl = "Senior Vice President" : this.YearlySpend==="< 25M JPY (B3-VP)" ? approvalLvl = "Vice President" :approvalLvl = "Senior Vice President";
+        }
+    }else if( this.DecisionType === "Non Sourcing Decision"){
+      switch(this.AgreementType){
+        case 'Confidentiality': this.IsDeviation?  approvalLvl = 'Manager' : approvalLvl = '';break;
+        case 'Parental Guarantee' : approvalLvl = 'Manager';break;
+      }
+      if(!(this.AgreementType == "Confidentiality" || this.AgreementType === "Parental Guarantee") ){
+        switch(this.contractSpend){
+          case '< 75m JPY' : approvalLvl = 'Manager';break;
+          case '< 350M JPY' : approvalLvl = "Vice President";break;
+          case 'Unlimted' : approvalLvl = "Senior Vice President";break;
+        }
+        }
     }
+  //   if(this.IsstrategicSegment){
+  //     approvalLvl = 'Senior Vice President'
+  //   }else{
+  //   switch(this.YearlySpend){
+  //     //case  '< 500 000 SEK Manager': approvalLvl = 'Manager'; break;
+  //     case '< 25M JPY (B3-VP)': approvalLvl = 'Vice President'; break;
+  //     case '>= 25M JPY (B2-SVP)': approvalLvl = 'Senior Vice President'; break;
+  //   }
+  // }
     return approvalLvl;
   }
   // endregion
@@ -353,11 +392,16 @@ class AgreementRequestClass {
   public get yearlySpendInvalid() {
     return this.showYearlySpend === true && this.YearlySpend === '' ? true : false;
   }
+  public get contractSpendInvalid() {
+    return this.showContractSpend === true && this.contractSpend === '' ? true : false;
+  }
 
   public get amendmentInvalid() {
     return this.IsAmendment === true && this.AmendmentDetails === '' ? true : false;
   }
-
+  public get strategicSegmentInvalid() {
+    return this.IsstrategicSegment === true && this.strategicSegmentDetails === '' ? true : false;
+  }
   public get rawMaterialInvalid() {
     return this.AgreementType === 'Raw Material' && this.RawMaterialDetails === '' ? true : false;
   }
@@ -494,11 +538,15 @@ class AgreementRequestClass {
       this.MiscApproverLoginName = '';
       this.MiscApproverName = '';
       this.YearlySpend = '';
+      this.contractSpend = '';
       this.IsPrice = false;
       this.PriceDetails = '';
       this.RawMaterialDetails = '';
       this.IsAmendment = false;
       this.AmendmentDetails = '';
+      // new item strategicSegment
+      this.IsstrategicSegment=false;
+      this.strategicSegmentDetails='';
       this.MainSegmentCode = '';
       this.IsDeviation = false;
       this.DeviationDetails = '';
@@ -1100,8 +1148,9 @@ class AgreementRequestClass {
       am_physicalStorage: this.PhysicalStorage,
       am_returnAgreementTo: this.ReturnTo,
       am_contactAddress: JSON.stringify(this.ContactAdress),
-      am_buyersManagersChain: JSON.stringify(this.ApproverChain)
-
+      am_buyersManagersChain: JSON.stringify(this.ApproverChain),
+      am_isStrategicSegment:this.IsstrategicSegment,
+      am_contractSpending:this.contractSpend
     };
     return item;
   }
@@ -1409,7 +1458,7 @@ class AgreementRequestClass {
               return buyerProperties;
             }
 
-            return users[managerLevel]
+            return users[managerLevel];
           };
 
           Promise.all(hierarchyPropsPromises)
