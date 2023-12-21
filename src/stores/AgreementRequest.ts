@@ -300,21 +300,21 @@ class AgreementRequestClass {
   }
 // this.DecisionType === 'Non Sourcing Decision'
   public get showYearlySpend() {
-    return (!(this.AgreementType === 'Confidentiality' || this.AgreementType === 'Parental Guarantee')
+    return (!(this.AgreementType === 'Confidentiality Agreement' || this.AgreementType === 'Parental Guarantee Agreement')
       && this.DecisionType === 'Sourcing Decision'
     );
   }
   public get showStrategic() {
-    return (!(this.AgreementType === 'Confidentiality' || this.AgreementType === 'Parental Guarantee')
+    return (!(this.AgreementType === 'Confidentiality Agreement' || this.AgreementType === 'Parental Guarantee Agreement')
       && this.DecisionType === 'Sourcing Decision'
     );
   }
   public get showDeviation() {
-    return (this.AgreementType === 'Confidentiality');
+    return (this.AgreementType === 'Confidentiality Agreement');
   }
 
   public get showContractSpend() { 
-    return (!(this.AgreementType === 'Confidentiality' || this.AgreementType === 'Parental Guarantee')
+    return (!(this.AgreementType === 'Confidentiality Agreement' || this.AgreementType === 'Parental Guarantee Agreement')
       && this.DecisionType === 'Non Sourcing Decision'
     );
   }
@@ -347,22 +347,22 @@ class AgreementRequestClass {
   public get approvalLevel() {
     //let approvalLvl = 'Senior Vice President';
     let approvalLvl = 'Manager';
-    console.log("看见就要开心一点哦4!");
+    console.log("看见就要开心一点哦6!");
     //pass
     if(this.DecisionType ==="Sourcing Decision"){
       switch(this.AgreementType){
-        case 'Confidentiality': this.IsDeviation?  approvalLvl = 'Manager' : approvalLvl = 'Agreement Controller';break;
-        case 'Parental Guarantee' : approvalLvl = 'Manager';break;
+        case 'Confidentiality Agreement': this.IsDeviation?  approvalLvl = 'Manager' : approvalLvl = 'Agreement Controller';break;
+        case 'Parental Guarantee Agreement' : approvalLvl = 'Manager';break;
       }
-      if(!(this.AgreementType == "Confidentiality" || this.AgreementType === "Parental Guarantee") ){
+      if(!(this.AgreementType == "Confidentiality Agreement" || this.AgreementType === "Parental Guarantee Agreement") ){
         this.IsstrategicSegment? approvalLvl = "Senior Vice President" : this.YearlySpend==="< 25M JPY (B3-VP)" ? approvalLvl = "Vice President" :approvalLvl = "Senior Vice President";
         }
     }else if( this.DecisionType === "Non Sourcing Decision"){
       switch(this.AgreementType){
-        case 'Confidentiality': this.IsDeviation?  approvalLvl = 'Manager' : approvalLvl = '';break;
-        case 'Parental Guarantee' : approvalLvl = 'Manager';break;
+        case 'Confidentiality Agreement': this.IsDeviation?  approvalLvl = 'Manager' : approvalLvl = 'Agreement Controller';break;
+        case 'Parental Guarantee Agreement' : approvalLvl = 'Manager';break;
       }
-      if(!(this.AgreementType == "Confidentiality" || this.AgreementType === "Parental Guarantee") ){
+      if(!(this.AgreementType == "Confidentiality Agreement" || this.AgreementType === "Parental Guarantee Agreement") ){
         switch(this.contractSpend){
           case '< 75m JPY (B4-Manager)' : approvalLvl = 'Manager';break;
           case '< 350M JPY (B3-VP)' : approvalLvl = "Vice President";break;
@@ -411,11 +411,11 @@ class AgreementRequestClass {
     return this.IsstrategicSegment === true && this.strategicSegmentDetails === '' ? true : false;
   }
   public get rawMaterialInvalid() {
-    return this.AgreementType === 'Raw Material' && this.RawMaterialDetails === '' ? true : false;
+    return this.AgreementType === 'Raw Material Agreement' && this.RawMaterialDetails === '' ? true : false;
   }
 
   public get priceInvalid() {
-    return (this.AgreementType === 'Price'
+    return (this.AgreementType === 'Price Agreement'
       && this.IsPrice === true)
       && this.PriceDetails === '' ? true : false;
   }
@@ -445,11 +445,11 @@ class AgreementRequestClass {
   }
 
   get pdDevelopmentInvalid() {
-    return this.AgreementType === 'Development' && this.DecisionType === decisionTypeOptions[1].key && this.ProductDevelopmentLoginName === '' ? true : false;
+    return this.AgreementType === 'Development Agreement' && this.DecisionType === decisionTypeOptions[1].key && this.ProductDevelopmentLoginName === '' ? true : false;
   }
 
   get miscApproverInvalid() {
-    return this.AgreementType === 'Misc' && this.MiscApproverLoginName === '' ? true : false;
+    return this.AgreementType === 'Miscellaneous Agreement' && this.MiscApproverLoginName === '' ? true : false;
   }
   public get validDateFromInvalid() {
     return this.ValidDateFrom === null ? true : false;
@@ -704,20 +704,20 @@ class AgreementRequestClass {
       this.IsPrice = false;
       this.AgreementType = value;
 
-      if (value === 'Price') {
+      if (value === 'Price Agreement') {
         this.IsPrice = true;
       }
 
-      if (value === 'Price' || value === 'Software Development') {
+      if (value === 'Price Agreement' || value === 'Software Development') {
         this.IsPriceOrSoftware = true;
       }
 
-      if (value !== 'Development' || this.DecisionType !== decisionTypeOptions[1].key) {
+      if (value !== 'Development Agreement' || this.DecisionType !== decisionTypeOptions[1].key) {
         this.ProductDevelopmentLoginName = '';
         this.ProductDevelopmentName = '';
       }
 
-      if (value !== 'Misc') {
+      if (value !== 'Miscellaneous Agreement') {
         this.MiscApproverLoginName = '';
         this.MiscApproverName = '';
       }

@@ -227,7 +227,7 @@ const NewForm = observer(class NewFormClass extends React.Component<INewFormProp
           </div>
         </FormRow>
        
-        {this.props.store.AgreementType === 'Development' && 
+        {this.props.store.AgreementType === 'Development Agreement' && 
         this.props.store.DecisionType === decisionTypeOptions[1].key &&   //Non Sourcing Decision
           <FormRow label='Please provide the id or name of the VP for the concerned Engineering department'
             required={true} tooltip=''
@@ -245,8 +245,8 @@ const NewForm = observer(class NewFormClass extends React.Component<INewFormProp
             />
           </FormRow>
         }
-       {this.props.store.AgreementType === 'Misc' && 
-          <FormRow label='Please provide the email id or name of the Misc Approver'
+       {this.props.store.AgreementType === 'Miscellaneous Agreement' && 
+          <FormRow label='Please provide the email id or name of the Miscellaneous Agreement Approver'
             required={true} tooltip=''
           >
              <PeoplePicker
@@ -256,7 +256,7 @@ const NewForm = observer(class NewFormClass extends React.Component<INewFormProp
             /> 
            
             <ValidationMessage
-              message='Misc Approver is required'
+              message='Miscellaneous Agreement Approver is required'
               dirty={this.state.dirty}
               condition={this.props.store.miscApproverInvalid === true}
             />
@@ -296,7 +296,7 @@ const NewForm = observer(class NewFormClass extends React.Component<INewFormProp
           </FormRow>
         }
 
-        {this.props.store.AgreementType === 'Price' &&
+        {this.props.store.AgreementType === 'Price Agreement' &&
           <FormRow  required={false} 
             label='In case the Price Agreement includes Raw Material Clause , please provide the validation/approval from the RM Team (hyperlink)'
             tooltip='In case the Price Agreement includes Raw Material Clause , please provide the validation/approval from the RM Team'
@@ -315,7 +315,7 @@ const NewForm = observer(class NewFormClass extends React.Component<INewFormProp
           </FormRow>
         }
 
-        {this.props.store.AgreementType === 'Raw Material' &&
+        {this.props.store.AgreementType === 'Raw Material Agreement' &&
           <FormRow label='Please provide the validation/approval from the RM Team (hyperlink)'
             required={true}
             tooltip='Please provide the validation/approval from the RM Team'

@@ -58,23 +58,23 @@
 // ];
 const agreementTypeOptions = [
         {
-            key: 'Confidentiality',
+            key: 'Confidentiality Agreement',
             text: 'Confidentiality Agreement'
         },
         {
-            key: 'Development',
+            key: 'Development Agreement',
             text: 'Development Agreement'
         },
         {
-            key: 'Framework',
+            key: 'Framework Agreement',
             text: 'Framework Agreement'
         },
         {
-            key: 'Misc',
+            key: 'Miscellaneous Agreement',
             text: 'Miscellaneous Agreement'
         },
         {
-            key: 'Parental Guarantee',
+            key: 'Parental Guarantee Agreement',
             text: 'Parental Guarantee Agreement'
         },
         // {
@@ -94,11 +94,11 @@ const agreementTypeOptions = [
         //     text: 'PPM'
         // },
         {
-            key: 'Price',
+            key: 'Price Agreement',
             text: 'Price Agreement'
         },
         {
-            key: 'Raw Material',
+            key: 'Raw Material Agreement',
             text: 'Raw Material Agreement'
         },
         // {
