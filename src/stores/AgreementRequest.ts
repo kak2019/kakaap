@@ -347,7 +347,7 @@ class AgreementRequestClass {
   public get approvalLevel() {
     //let approvalLvl = 'Senior Vice President';
     let approvalLvl = 'Manager';
-    console.log("看见就要开心一点哦6!");
+    console.log("看见就要开心一点哦7!");
     //pass
     if(this.DecisionType ==="Sourcing Decision"){
       switch(this.AgreementType){
@@ -907,11 +907,12 @@ class AgreementRequestClass {
         'am_mainSegmentCode', 'am_isDeviation', 'am_deviationDetailsMultiline', 'am_rawMaterialDetails', 'am_isPrice', 'am_priceDetails', 'am_yearlySpend',
         'am_agreementSignedBy', 'am_agreementSignedFor', 'am_validFrom', 'am_validTo', 'am_projectCode', 'am_sourcingCaseNumber',
         'am_isHide', 'am_hideDetails', 'am_isConfidential', 'am_externalNotesVsib', 'am_physicalStorage', 'am_returnAgreementTo', 'am_contactAddress',
-        'am_buyersManagersChain', 'am_isMiscApproverSet', 'am_reminderDate'
+        'am_buyersManagersChain', 'am_isMiscApproverSet', 'am_reminderDate','am_isStrategicSegment','am_contractSpending'
       )
       .expand('am_requestor', 'am_buyer', 'am_manager', 'am_productDevelopment', 'am_miscApprover')
       .get()
       .then(result => {
+        console.log("result",result)
         MobiX.runInAction(() => {
           const approvers = JSON.parse(result.am_buyersManagersChain);
           this.ApproverChain = approvers;
@@ -938,6 +939,8 @@ class AgreementRequestClass {
           this.RawMaterialDetails = this.getValue(result.am_rawMaterialDetails);
           this.IsPrice = result.am_isPrice;
           this.YearlySpend = this.getValue(result.am_yearlySpend);
+          this.IsstrategicSegment = result.am_isStrategicSegment;
+          this.contractSpend = this.getValue(result.am_contractSpending)
           this.PriceDetails = this.getValue(result.am_priceDetails);
           this.FunctionBy = this.getValue(result.am_agreementSignedBy);
           // this.FunctionFor = result.am_agreementSignedFor ? result.am_agreementSignedFor.results : [];
@@ -1131,6 +1134,8 @@ class AgreementRequestClass {
       am_agreementDescription: this.AgreementDescription,
       am_connectAgreementTo: this.ConnectAgreementTo,
       am_isPrice: this.IsPrice,
+      am_isStrategicSegment:this.IsstrategicSegment,
+      am_contractSpending:this.contractSpend,
       am_priceDetails: this.PriceDetails,
       am_rawMaterialDetails: this.RawMaterialDetails,
       am_yearlySpend: this.YearlySpend,
@@ -1157,8 +1162,7 @@ class AgreementRequestClass {
       am_returnAgreementTo: this.ReturnTo,
       am_contactAddress: JSON.stringify(this.ContactAdress),
       am_buyersManagersChain: JSON.stringify(this.ApproverChain),
-      am_isStrategicSegment:this.IsstrategicSegment,
-      am_contractSpending:this.contractSpend
+      
     };
     return item;
   }

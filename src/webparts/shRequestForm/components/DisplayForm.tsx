@@ -164,33 +164,48 @@ const DisplayForm = observer(class DisplayFormClass extends React.Component<IDis
                 </FormRow>
 
 
-                {this.props.store.AgreementType === 'Development' &&
+                {this.props.store.AgreementType === 'Development Agreement' &&
                 this.props.store.DecisionType === decisionTypeOptions[1].key &&   //Non Sourcing Decision
                     <FormRow label='Please provide the id of the VP for the concerned Engineering department'>
                         <Label>{this.props.store.ProductDevelopmentName}</Label>
                     </FormRow>
                 }
 
-                {this.props.store.AgreementType === 'Misc' &&
+                {this.props.store.AgreementType === 'Miscellaneous Agreement' &&
                     <FormRow label='Please provide the email id or name of the Misc Approver'>
                         <Label>{this.props.store.MiscApproverName}</Label>
                     </FormRow>
                 }
-
+  
+                    {this.props.store.showContractSpend &&
+                    <FormRow label='Contract Spending'>
+                        <Label>{this.props.store.contractSpend}</Label>
+                    </FormRow>
+                }
                 {
                     this.props.store.showYearlySpend &&
                     <FormRow label='Yearly spend'>
                         <Label>{this.props.store.YearlySpend}</Label>
                     </FormRow>
                 }
+                {this.props.store.showStrategic && 
+                <FormRow label='Strategic segment'>
+                <Checkbox
+                        // defaultChecked={this.props.store.IsstrategicSegment}
+                        checked={this.props.store.IsstrategicSegment}
+                        disabled={true}
+                    />
+                    </FormRow>
+                    } 
 
                 {
-                    this.props.store.AgreementType === 'Price' &&
+                    this.props.store.AgreementType === 'Price Agreement' &&
                     <FormRow
                         label='Price agreement'
                     >
                         <Checkbox
-                            defaultChecked={this.props.store.IsPrice}
+                            //defaultChecked={this.props.store.IsPrice}
+                            checked={this.props.store.IsPrice}
                             disabled={true}
                         />
                         <Label>{this.props.store.PriceDetails}</Label>
@@ -198,7 +213,7 @@ const DisplayForm = observer(class DisplayFormClass extends React.Component<IDis
                 }
 
                 {
-                    this.props.store.AgreementType === 'Raw Material' &&
+                    this.props.store.AgreementType === 'Raw Material Agreement' &&
                     <FormRow label='Raw material agreement'>
                         <Label>{this.props.store.RawMaterialDetails}</Label>
                     </FormRow>
@@ -206,7 +221,8 @@ const DisplayForm = observer(class DisplayFormClass extends React.Component<IDis
 
                 <FormRow label='Amendment'>
                     <Checkbox
-                        defaultChecked={this.props.store.IsAmendment}
+                        //defaultChecked={this.props.store.IsAmendment}
+                        checked={this.props.store.IsAmendment}
                         disabled={true}
                     />
                     <Label>{this.props.store.AmendmentDetails}</Label>
@@ -220,7 +236,8 @@ const DisplayForm = observer(class DisplayFormClass extends React.Component<IDis
                     <div className='ms-Grid-row pad-top'>
                         <div className="ms-Grid-col ms-sm12 ms-lg3 ms-formlabel">
                             <Checkbox
-                                defaultChecked={this.props.store.IsDeviation}
+                                //defaultChecked={this.props.store.IsDeviation}
+                                checked={this.props.store.IsDeviation}
                                 disabled={true}
                             />
                         </div>
@@ -300,7 +317,8 @@ const DisplayForm = observer(class DisplayFormClass extends React.Component<IDis
 
                 <FormRow label='Hide'>
                     <Checkbox
-                        defaultChecked={this.props.store.IsHide}
+                        //defaultChecked={this.props.store.IsHide}
+                        checked={this.props.store.IsHide}
                         disabled={true}
                     />
                     <Label>{this.props.store.HideDetails}</Label>
@@ -309,7 +327,8 @@ const DisplayForm = observer(class DisplayFormClass extends React.Component<IDis
 
                 <FormRow label='Confidential' >
                     <Checkbox
-                        defaultChecked={this.props.store.IsConfidential}
+                        //defaultChecked={this.props.store.IsConfidential}
+                        checked = {this.props.store.IsConfidential}
                         disabled={true}
                     />
                 </FormRow>
