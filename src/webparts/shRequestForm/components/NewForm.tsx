@@ -126,7 +126,8 @@ const NewForm = observer(class NewFormClass extends React.Component<INewFormProp
             </p>
             <IconButton
               iconProps={{ iconName: 'WordDocument' }}
-              href={appConfig.sourcingFilePath}
+              //href={appConfig.sourcingFilePath}
+              href={document.location.href.slice(0,document.location.href.indexOf("/SitePages"))+"/Shared%20Documents/SOURCING%20OR%20NON%20SOURCING.DOCX"}
             />
           </div>}
         >

@@ -43,6 +43,7 @@ import { contactOptions } from '../../../config/contactOptions';
 import { appConfig } from "../../../config/app.config";
 import { contractSpendOptions } from '../../../config/contractSpending';
 
+
 interface IEditFormProps
 {
   store:any;
@@ -68,6 +69,7 @@ const EditForm = observer(class EditFormClass extends React.Component<IEditFormP
     public componentWillMount() {
         this.props.store.getRequest(this.props.id);
         this.props.store.getGroupUsers();
+        
     }
 
 
@@ -131,7 +133,9 @@ const EditForm = observer(class EditFormClass extends React.Component<IEditFormP
                         </p>
                             <IconButton
                                 iconProps={{ iconName: 'WordDocument' }}
-                                href={appConfig.sourcingFilePath}
+                                //href={appConfig.sourcingFilePath}
+                                href={document.location.href.slice(0,document.location.href.indexOf("/SitePages"))+"/Shared%20Documents/SOURCING%20OR%20NON%20SOURCING.DOCX"}
+                               
                             />
                         </div>
                     }

@@ -347,7 +347,7 @@ class AgreementRequestClass {
   public get approvalLevel() {
     //let approvalLvl = 'Senior Vice President';
     let approvalLvl = 'Manager';
-    console.log("看见就要开心一点哦7!");
+    
     //pass
     if(this.DecisionType ==="Sourcing Decision"){
       switch(this.AgreementType){
