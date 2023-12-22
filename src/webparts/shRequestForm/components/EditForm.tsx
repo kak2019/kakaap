@@ -294,6 +294,7 @@ const EditForm = observer(class EditFormClass extends React.Component<IEditFormP
             required={true} tooltip=''
           >
             <ChoiceGroup
+            selectedKey={this.props.store.contractSpend}
               required={true}
               options={contractSpendOptions}
               onChange={(event, option) => this.props.store.contractSpend = option.key}
