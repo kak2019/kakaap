@@ -182,12 +182,12 @@ const DisplayForm = observer(class DisplayFormClass extends React.Component<IDis
                         <Label>{this.props.store.contractSpend}</Label>
                     </FormRow>
                 }
-                {
-                    this.props.store.showYearlySpend &&
+                
+                    
                     <FormRow label='Yearly spend'>
                         <Label>{this.props.store.YearlySpend}</Label>
                     </FormRow>
-                }
+                
                 {this.props.store.showStrategic && 
                 <FormRow label='Strategic segment'>
                 <Checkbox
