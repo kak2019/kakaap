@@ -38,7 +38,7 @@ import { yearlySpendOptions } from '../../../config/yearlySpendOptions';
 import { functionByOptions } from '../../../config/functionOptions';
 import { physicalStorageOptions } from '../../../config/physicalStorageOptions';
 import { contactOptions } from '../../../config/contactOptions';
-import { appConfig } from "../../../config/app.config";
+// import { appConfig } from "../../../config/app.config";
 import { contractSpendOptions } from '../../../config/contractSpending';
 
 interface INewFormProps

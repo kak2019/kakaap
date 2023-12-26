@@ -171,6 +171,35 @@ class AgreementRequestClass {
       this.confirmationNoCallback = null;
     });
   }
+
+  // region CONFIRMATION BOXES
+  @MobiX.observable private isConfirmationWithUpload: boolean = false;
+  @MobiX.observable private confirmationMessageWithUpload: any = '';
+  @MobiX.observable private confirmationYesCallbackWithUpload: any = null;
+  @MobiX.observable private confirmationNoCallbackWithUpload: any = null;
+  public triggerConfirmationWithUpload(message, callback) {
+    MobiX.runInAction(() => {
+      this.isConfirmationWithUpload = true;
+      this.confirmationMessageWithUpload = message;
+      const _that = this;
+      this.confirmationYesCallbackWithUpload = () => {
+        _that.closeConfirmation();
+        callback();
+      };
+      this.confirmationNoCallbackWithUpload = () => {
+        _that.closeConfirmation();
+      };
+    });
+  }
+
+  public closeConfirmationWithUpload() {
+    MobiX.runInAction(() => {
+      this.isConfirmationWithUpload = false;
+      this.confirmationMessageWithUpload = '';
+      this.confirmationYesCallbackWithUpload = null;
+      this.confirmationNoCallbackWithUpload = null;
+    });
+  }
   // endregion
 
   // region next approver picker
@@ -826,6 +855,33 @@ class AgreementRequestClass {
 
 
   public onSignedAgreementRemoved(e) {
+    let array = this.SignedAgreements.split('#');
+    for (let i = 0; i < e.files.length; ++i) {
+      array = array.filter((element) => {
+        return element !== e.files[i].name;
+      });
+    }
+    MobiX.runInAction(() => {
+      this.SignedAgreements = array.join('#');
+    });
+  }
+  public onCloseFiletAdded(e) {
+    if (e.files.length > 0) {
+      let array = [];
+      if (this.SignedAgreements !== '') {
+        array = this.SignedAgreements.split('#');
+      }
+      for (let i = 0; i < e.files.length; ++i) {
+        array.push(e.files[i].name);
+      }
+      MobiX.runInAction(() => {
+        this.SignedAgreements = array.join('#');
+      });
+    }
+  }
+
+
+  public onCloseFileRemoved(e) {
     let array = this.SignedAgreements.split('#');
     for (let i = 0; i < e.files.length; ++i) {
       array = array.filter((element) => {

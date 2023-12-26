@@ -22,7 +22,7 @@ import ConfirmationBox from './forms/ConfirmationBox';
 // import NextApproverPicker from './forms/NextApproverPicker';
 import ApproversTable from './forms/ApproversTable';
 import { decisionTypeOptions } from '../../../config/decisionTypeOptions';
-
+import ConfirmationBoxWithUpload from './forms/ConfirmationBoxWithUploadfile';
 interface IDisplayFormProps
 {
   store:any;
@@ -61,8 +61,9 @@ const DisplayForm = observer(class DisplayFormClass extends React.Component<IDis
                                     let callback =  ()=> {
                                         that.props.store.close(that.props.id, that.props.history);
                                     };
-                                    this.props.store.triggerConfirmation(
-                                        "Are you sure you want to close this request " + this.props.store.Title + "?",
+                                    this.props.store.triggerConfirmationWithUpload(
+                                        //"Are you sure you want to close this request " + this.props.store.Title + "?",
+                                        "Please ensure that the final signed agreement is upload into AP agreement tool before closing the case",
                                         callback
                                     );
                                 }}
@@ -434,8 +435,9 @@ const DisplayForm = observer(class DisplayFormClass extends React.Component<IDis
                                     let callback =  ()=> {
                                         that.props.store.close(that.props.id, that.props.history);
                                     };
-                                    this.props.store.triggerConfirmation(
-                                        "Are you sure you want to close this request " + this.props.store.Title + "?",
+                                    this.props.store.triggerConfirmationWithUpload(
+                                        //"Are you sure you want to close this request 1" + this.props.store.Title + "?",
+                                        "Please ensure that the final signed agreement is upload into AP agreement tool before closing the case",
                                         callback
                                     );
                                 }}
@@ -484,7 +486,13 @@ const DisplayForm = observer(class DisplayFormClass extends React.Component<IDis
                     confirmationNoCallback={this.props.store.confirmationNoCallback}
                     store={this.props.store}
                 />
-                
+                <ConfirmationBoxWithUpload
+                    isOpen={this.props.store.isConfirmationWithUpload}
+                    confirmationDetails={this.props.store.confirmationMessageWithUpload}
+                    confirmationYesCallback={this.props.store.confirmationYesCallbackWithUpload}
+                    confirmationNoCallback={this.props.store.confirmationNoCallbackWithUpload}
+                    store={this.props.store}
+                />
                 {/*
                 <NextApproverPicker
                     isOpen={this.props.store.isPicker}
