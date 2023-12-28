@@ -25,7 +25,7 @@ class ConfirmationBoxWithUpload extends React.Component<IConfirmationBoxProps,{}
                 {/* <h4>Please confirm11</h4> */}
                 <div>{confirmationDetails}</div>
                 <div>
-                <div id="SignedAgreements">
+                <div id="CloseRequest">
             <Upload
               select={(event) => this.props.store.onSignedAgreementAdded(event)}
               remove={(event) => this.props.store.onSignedAgreementRemoved(event)}

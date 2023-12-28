@@ -413,7 +413,18 @@ const DisplayForm = observer(class DisplayFormClass extends React.Component<IDis
                     />
 
                 </FormRow>
+                <FormRow label='Final Signed Agreement'
+                    required={true}
+                >
+                    <FilesList
+                        libraryPath={CONST.libraryPath}
+                        libraryTitle={CONST.libraryTitle}
+                        folder={this.props.id}
+                        // contentType={CONST.FinalFileCT}
+                        contentType="Document"
+                    />
 
+                </FormRow>
                 <FormRow>
                     <div className="row-commands">
                         <DefaultButton
@@ -489,7 +500,7 @@ const DisplayForm = observer(class DisplayFormClass extends React.Component<IDis
                 <ConfirmationBoxWithUpload
                     isOpen={this.props.store.isConfirmationWithUpload}
                     confirmationDetails={this.props.store.confirmationMessageWithUpload}
-                    confirmationYesCallback={this.props.store.confirmationYesCallbackWithUpload}
+                    confirmationYesCallback={() => this.props.store.confirmationYesCallbackWithUpload(this.props.id, this.props.history)}
                     confirmationNoCallback={this.props.store.confirmationNoCallbackWithUpload}
                     store={this.props.store}
                 />

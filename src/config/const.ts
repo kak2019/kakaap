@@ -20,6 +20,7 @@ const CONST = {
     taskListName: 'Agreement Approval Tasks',
     SignedAgreementCT: 'Signed Agreement',
     DeviationCT: 'Deviation',
+    FinalFileCT:'FinalFile',
     pamAdminGroup: 'Local PAM Admin',
     agreementControllersGroup: 'Agreement Controller',
     sourcingControllersGroup: 'Sourcing Controllers',

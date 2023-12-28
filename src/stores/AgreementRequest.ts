@@ -182,7 +182,8 @@ class AgreementRequestClass {
       this.isConfirmationWithUpload = true;
       this.confirmationMessageWithUpload = message;
       const _that = this;
-      this.confirmationYesCallbackWithUpload = () => {
+      this.confirmationYesCallbackWithUpload = (id, history) => {
+        _that.closeRequestUpload(id, history);
         _that.closeConfirmation();
         callback();
       };
@@ -968,7 +969,7 @@ class AgreementRequestClass {
       .expand('am_requestor', 'am_buyer', 'am_manager', 'am_productDevelopment', 'am_miscApprover')
       .get()
       .then(result => {
-        console.log("result",result)
+        // console.log("result",result)
         MobiX.runInAction(() => {
           const approvers = JSON.parse(result.am_buyersManagersChain);
           this.ApproverChain = approvers;
@@ -996,7 +997,7 @@ class AgreementRequestClass {
           this.IsPrice = result.am_isPrice;
           this.YearlySpend = this.getValue(result.am_yearlySpend);
           this.IsstrategicSegment = result.am_isStrategicSegment;
-          this.contractSpend = this.getValue(result.am_contractSpending)
+          this.contractSpend = this.getValue(result.am_contractSpending);
           this.PriceDetails = this.getValue(result.am_priceDetails);
           this.FunctionBy = this.getValue(result.am_agreementSignedBy);
           // this.FunctionFor = result.am_agreementSignedFor ? result.am_agreementSignedFor.results : [];
@@ -1451,13 +1452,15 @@ class AgreementRequestClass {
           );
         }
       }
-
+console.log("file",fileUploadPromises.length)
       if (fileUploadPromises.length === 0) {
         resolve("Success");
+       
       }
 
       else {
         // Uploading all attachments
+        console.log("111")
         Promise.all(fileUploadPromises).then((files) => {
           const getRelatedItemPromises = [];
           for (let i = 0; i < files.length; ++i) {
@@ -1479,6 +1482,7 @@ class AgreementRequestClass {
               );
             }
             Promise.all(setContentTypePromises).then(() => {
+              console.log("succedd contenttype")
               resolve("Success");
             });
           });
@@ -1590,8 +1594,20 @@ class AgreementRequestClass {
         });
     }
   }
-}
 
+  public closeRequestUpload(id, history) {
+    sp.web.lists.getByTitle(CONST.libraryTitle).contentTypes.get()
+        .then(result => {
+          const FinalFileContentTypeId = result.filter((contenType) => {
+            return contenType.Name === CONST.FinalFileCT;
+          })[0].StringId;
+          console.log("final",FinalFileContentTypeId);
+     const inputRef = [document.querySelector('#CloseRequest input')];
+     const folderUrl = CONST.libraryPath + '/' + id;
+     this.uploadFilesOfContentType(folderUrl, inputRef, FinalFileContentTypeId);
+  });
+}
+}
 const AgreementRequest = new AgreementRequestClass();
 
 
