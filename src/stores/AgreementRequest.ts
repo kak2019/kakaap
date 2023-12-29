@@ -394,7 +394,7 @@ class AgreementRequestClass {
       }
       if(!(this.AgreementType == "Confidentiality Agreement" || this.AgreementType === "Parental Guarantee Agreement") ){
         switch(this.contractSpend){
-          case '< 75m JPY (B4-Manager)' : approvalLvl = 'Manager';break;
+          case '< 75M JPY (B4-Manager)' : approvalLvl = 'Manager';break;
           case '< 350M JPY (B3-VP)' : approvalLvl = "Vice President";break;
           case 'Unlimted (B2-SVP)' : approvalLvl = "Senior Vice President";break;
         }
