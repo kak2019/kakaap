@@ -189,15 +189,7 @@ const DisplayForm = observer(class DisplayFormClass extends React.Component<IDis
                         <Label>{this.props.store.YearlySpend}</Label>
                     </FormRow>
                 
-                {this.props.store.showStrategic && 
-                <FormRow label='Strategic segment'>
-                <Checkbox
-                        // defaultChecked={this.props.store.IsstrategicSegment}
-                        checked={this.props.store.IsstrategicSegment}
-                        disabled={true}
-                    />
-                    </FormRow>
-                    } 
+                
 
                 {
                     this.props.store.AgreementType === 'Price Agreement' &&
@@ -226,13 +218,21 @@ const DisplayForm = observer(class DisplayFormClass extends React.Component<IDis
                         checked={this.props.store.IsAmendment}
                         disabled={true}
                     />
-                    <Label>{this.props.store.AmendmentDetails}</Label>
+                    {/* <Label>{this.props.store.AmendmentDetails}</Label> */}
                 </FormRow>
 
                 <FormRow label='Main Segment Code'>
                     <Label>{this.props.store.MainSegmentCode}</Label>
                 </FormRow>
-
+                {this.props.store.showStrategic && 
+                <FormRow label='Strategic segment'>
+                <Checkbox
+                        // defaultChecked={this.props.store.IsstrategicSegment}
+                        checked={this.props.store.IsstrategicSegment}
+                        disabled={true}
+                    />
+                    </FormRow>
+                    } 
                 <FormRow label='Deviation for Agreement Template'>
                     <div className='ms-Grid-row pad-top'>
                         <div className="ms-Grid-col ms-sm12 ms-lg3 ms-formlabel">
@@ -420,8 +420,8 @@ const DisplayForm = observer(class DisplayFormClass extends React.Component<IDis
                         libraryPath={CONST.libraryPath}
                         libraryTitle={CONST.libraryTitle}
                         folder={this.props.id}
-                        // contentType={CONST.FinalFileCT}
-                        contentType="Document"
+                        contentType={CONST.FinalFileCT}
+                        //contentType="Document"
                     />
 
                 </FormRow>
