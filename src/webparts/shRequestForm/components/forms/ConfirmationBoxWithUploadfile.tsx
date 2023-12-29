@@ -10,11 +10,17 @@ interface IConfirmationBoxProps{
     store:any;
 }
 
-class ConfirmationBoxWithUpload extends React.Component<IConfirmationBoxProps,{}> {
+class ConfirmationBoxWithUpload extends React.Component<IConfirmationBoxProps,{isDisabled: boolean}> {
+
+    constructor(props) {
+        super(props)
+        this.state = {
+            isDisabled: true
+        }
+    }
 
     public render():JSX.Element {
         const isOpen = this.props.isOpen;
-        
         const confirmationDetails = this.props.confirmationDetails;
         return (
             <Modal
@@ -27,8 +33,23 @@ class ConfirmationBoxWithUpload extends React.Component<IConfirmationBoxProps,{}
                 <div>
                 <div id="CloseRequest">
             <Upload
-              select={(event) => this.props.store.onSignedAgreementAdded(event)}
-              remove={(event) => this.props.store.onSignedAgreementRemoved(event)}
+              select={(event) => {
+                console.log(event)
+                if(event.files.length > 0) {
+                    this.setState({
+                        isDisabled: false
+                    })
+                }
+                this.props.store.onSignedAgreementAdded(event)
+                }}
+              remove={(event) => {
+                if(event.files.length > 0) {
+                    this.setState({
+                        isDisabled: true
+                    })
+                }
+                this.props.store.onSignedAgreementRemoved(event)
+            }}
             />
           </div>
                 <DefaultButton
@@ -39,6 +60,7 @@ class ConfirmationBoxWithUpload extends React.Component<IConfirmationBoxProps,{}
                         }}
                     />
                     <DefaultButton
+                        disabled={this.state.isDisabled}
                         className='right-aligned'
                         text='Close Request'
                         primary={true}

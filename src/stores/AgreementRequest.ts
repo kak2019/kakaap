@@ -181,11 +181,11 @@ class AgreementRequestClass {
     MobiX.runInAction(() => {
       this.isConfirmationWithUpload = true;
       this.confirmationMessageWithUpload = message;
+      this.SignedAgreements = ''
       const _that = this;
       this.confirmationYesCallbackWithUpload = (id, history) => {
-        _that.closeRequestUpload(id, history);
+        _that.closeRequestUpload(id, callback);
         _that.closeConfirmation();
-        callback();
       };
       this.confirmationNoCallbackWithUpload = () => {
         _that.closeConfirmation();
@@ -1595,7 +1595,7 @@ console.log("file",fileUploadPromises.length)
     }
   }
 
-  public closeRequestUpload(id, history) {
+  public closeRequestUpload(id, callback) {
     sp.web.lists.getByTitle(CONST.libraryTitle).contentTypes.get()
         .then(result => {
           const FinalFileContentTypeId = result.filter((contenType) => {
@@ -1604,7 +1604,9 @@ console.log("file",fileUploadPromises.length)
           console.log("final",FinalFileContentTypeId);
      const inputRef = [document.querySelector('#CloseRequest input')];
      const folderUrl = CONST.libraryPath + '/' + id;
-     this.uploadFilesOfContentType(folderUrl, inputRef, FinalFileContentTypeId);
+     this.uploadFilesOfContentType(folderUrl, inputRef, FinalFileContentTypeId).then(res => {
+        callback()
+     })
   });
 }
 }
