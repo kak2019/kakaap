@@ -169,6 +169,8 @@ class AgreementRequestClass {
       this.confirmationMessage = '';
       this.confirmationYesCallback = null;
       this.confirmationNoCallback = null;
+      //change
+      this.isConfirmationWithUpload = false;
     });
   }
 

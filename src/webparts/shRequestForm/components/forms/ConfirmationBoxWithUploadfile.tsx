@@ -6,6 +6,7 @@ interface IConfirmationBoxProps{
     isOpen:any;
     confirmationDetails:any;
     confirmationNoCallback:any;
+    //confirmationNoCallbackWithUpload:any,
     confirmationYesCallback:any;
     store:any;
 }
@@ -57,6 +58,8 @@ class ConfirmationBoxWithUpload extends React.Component<IConfirmationBoxProps,{i
                         text='Cancel'
                         onClick={(e) => {
                             this.props.confirmationNoCallback.bind(this.props.store)();
+                            //alert("2")
+                            //this.props.store.isConfirmationWithUpload=false
                         }}
                     />
                     <DefaultButton
