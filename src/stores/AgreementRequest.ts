@@ -183,7 +183,7 @@ class AgreementRequestClass {
     MobiX.runInAction(() => {
       this.isConfirmationWithUpload = true;
       this.confirmationMessageWithUpload = message;
-      this.SignedAgreements = ''
+      this.SignedAgreements = '';
       const _that = this;
       this.confirmationYesCallbackWithUpload = (id, history) => {
         _that.closeRequestUpload(id, callback);
@@ -1454,7 +1454,7 @@ class AgreementRequestClass {
           );
         }
       }
-console.log("file",fileUploadPromises.length)
+console.log("file",fileUploadPromises.length);
       if (fileUploadPromises.length === 0) {
         resolve("Success");
        
@@ -1462,7 +1462,7 @@ console.log("file",fileUploadPromises.length)
 
       else {
         // Uploading all attachments
-        console.log("111")
+        console.log("111");
         Promise.all(fileUploadPromises).then((files) => {
           const getRelatedItemPromises = [];
           for (let i = 0; i < files.length; ++i) {
@@ -1484,7 +1484,7 @@ console.log("file",fileUploadPromises.length)
               );
             }
             Promise.all(setContentTypePromises).then(() => {
-              console.log("succedd contenttype")
+              console.log("succedd contenttype");
               resolve("Success");
             });
           });
@@ -1606,12 +1606,24 @@ console.log("file",fileUploadPromises.length)
           console.log("final",FinalFileContentTypeId);
      const inputRef = [document.querySelector('#CloseRequest input')];
      const folderUrl = CONST.libraryPath + '/' + id;
-     this.uploadFilesOfContentType(folderUrl, inputRef, FinalFileContentTypeId).then(res => {
-        callback()
-     })
+     const result1 = sp.web.getFolderByServerRelativePath(CONST.libraryPath + '/' + id)
+     .files().then(
+       ()=>console.log("result1",result1)
+     );
+    //  this.uploadFilesOfContentType(folderUrl, inputRef, FinalFileContentTypeId).then(res => {
+    //     callback();
+    //  });
   });
 }
+
+
+  
+
+
+
+
 }
+
 const AgreementRequest = new AgreementRequestClass();
 
 

@@ -14,10 +14,10 @@ interface IConfirmationBoxProps{
 class ConfirmationBoxWithUpload extends React.Component<IConfirmationBoxProps,{isDisabled: boolean}> {
 
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {
             isDisabled: true
-        }
+        };
     }
 
     public render():JSX.Element {
@@ -35,21 +35,21 @@ class ConfirmationBoxWithUpload extends React.Component<IConfirmationBoxProps,{i
                 <div id="CloseRequest">
             <Upload
               select={(event) => {
-                console.log(event)
+                console.log(event);
                 if(event.files.length > 0) {
                     this.setState({
                         isDisabled: false
-                    })
+                    });
                 }
-                this.props.store.onSignedAgreementAdded(event)
+                this.props.store.onSignedAgreementAdded(event);
                 }}
               remove={(event) => {
                 if(event.files.length > 0) {
                     this.setState({
                         isDisabled: true
-                    })
+                    });
                 }
-                this.props.store.onSignedAgreementRemoved(event)
+                this.props.store.onSignedAgreementRemoved(event);
             }}
             />
           </div>

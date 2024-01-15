@@ -19,7 +19,7 @@ build.configureWebpack.setConfig({
         console.log(process.env);
         let defineOptions = {};
 
-        if (azureFunctionBaseUrl && azureFunctionBaseUrl && isDev !== "") {
+        if (azureFunctionBaseUrl && azureFunctionBaseUrl && isDev == "") {
             console.log('***********    Applying development settings to webpack *********************');
             defineOptions = {
                 'azureFunctionBaseUrl': JSON.stringify(azureFunctionBaseUrl),
