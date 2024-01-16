@@ -1441,7 +1441,7 @@ class AgreementRequestClass {
     return sanitizedInput;
   }
 
-  public uploadFilesOfContentType(folderUrl, inputElements, contentTypeId) {
+  public uploadFilesOfContentType(folderUrl, inputElements, contentTypeId, name?: string) {
     console.log("Uploadig files for conetnt type", folderUrl);
     const promise = new Promise((resolve) => {
       const fileUploadPromises = [];
@@ -1450,7 +1450,7 @@ class AgreementRequestClass {
         for (let j = 0; j < files.length; ++j) {
           const file = files[j];
           fileUploadPromises.push(
-            sp.web.getFolderByServerRelativeUrl(folderUrl).files.add(this.sanitize(file.name), file, true)
+            sp.web.getFolderByServerRelativeUrl(folderUrl).files.add(this.sanitize(name || file.name), file, true)
           );
         }
       }
@@ -1604,15 +1604,26 @@ console.log("file",fileUploadPromises.length);
             return contenType.Name === CONST.FinalFileCT;
           })[0].StringId;
           console.log("final",FinalFileContentTypeId);
-     const inputRef = [document.querySelector('#CloseRequest input')];
-     const folderUrl = CONST.libraryPath + '/' + id;
-     const result1 = sp.web.getFolderByServerRelativePath(CONST.libraryPath + '/' + id)
-     .files().then(
-       ()=>console.log("result1",result1)
-     );
-    //  this.uploadFilesOfContentType(folderUrl, inputRef, FinalFileContentTypeId).then(res => {
-    //     callback();
-    //  });
+     let inputRef = [document.querySelector('#CloseRequest input')] as HTMLInputElement[]
+     let folderUrl = CONST.libraryPath + '/' + id
+          
+     sp.web.getFolderByServerRelativeUrl(folderUrl).files
+        .expand('ListItemAllFields')
+        .get()
+        .then(files => {
+          const file = inputRef[0].files[0]
+          const bool = files.some(val => val.Name === file.name)
+          let name
+          if(bool) {
+            const type = file.name.split('.')[1]
+            name = file.name.split('.')[0] + '_final.' + type
+          }
+          
+          this.uploadFilesOfContentType(folderUrl, inputRef, FinalFileContentTypeId, name).then(res => {
+            callback();
+          });
+        });
+    
   });
 }
 
