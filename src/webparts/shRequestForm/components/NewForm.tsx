@@ -297,7 +297,7 @@ const NewForm = observer(class NewFormClass extends React.Component<INewFormProp
           </FormRow>
         }
 
-        {this.props.store.AgreementType === 'Price Agreement' &&
+        {(this.props.store.AgreementType === 'Price Agreement' || this.props.store.AgreementType === 'Price Agreement Amendment') && 
           <FormRow  required={false} 
             label='In case the Price Agreement includes Raw Material Clause , please provide the validation/approval from the RM Team (hyperlink)'
             tooltip='In case the Price Agreement includes Raw Material Clause , please provide the validation/approval from the RM Team'
@@ -334,7 +334,7 @@ const NewForm = observer(class NewFormClass extends React.Component<INewFormProp
           </FormRow>
         }
  
-        <FormRow label='Amendment' required={false}
+        {/* <FormRow label='Amendment' required={false}
           tooltip='Provide Parma number and valid date of the agreement in VSIB which this amendment belongs to.'
         >
           <CheckboxWithTextField
@@ -348,7 +348,7 @@ const NewForm = observer(class NewFormClass extends React.Component<INewFormProp
             dirty={this.state.dirty}
             condition={this.props.store.amendmentInvalid === true}
           />
-        </FormRow>
+        </FormRow> */}
 
         <FormRow label='Main Segment Code'
           required={true}
@@ -426,7 +426,7 @@ const NewForm = observer(class NewFormClass extends React.Component<INewFormProp
           <Label>{this.props.store.approvalLevel}</Label>
         </FormRow>
 
-        <FormRow label='Agreement Signed' required={false}
+        {/* <FormRow label='Agreement Signed' required={false}
           tooltip='Tick the brand this agreement is covering. "All" for most global agreements. For price agreements it can be 1 or several brands.'
         >
           <div className='ms-Grid-row pad-top'>
@@ -440,7 +440,7 @@ const NewForm = observer(class NewFormClass extends React.Component<INewFormProp
                 onChanged={(item) => this.props.store.FunctionBy = item.key}
               />
             </div>
-          </div>
+          </div> */}
           {/* <div className='ms-Grid-row pad-top'>
             <div className="ms-Grid-col ms-sm12 ms-lg3 ms-formlabel">
               For
@@ -455,7 +455,7 @@ const NewForm = observer(class NewFormClass extends React.Component<INewFormProp
               />
             </div>
           </div> */}
-        </FormRow>
+        {/* </FormRow> */}
 
         <FormRow label='Valid From'
           required={true}
@@ -525,7 +525,7 @@ const NewForm = observer(class NewFormClass extends React.Component<INewFormProp
           />
         </FormRow>
 
-        <FormRow label='Hide'  required={false} 
+        {/* <FormRow label='Hide'  required={false} 
           tooltip='This option is used in order to hide old agreements from VSIB'>
           <CheckboxWithTextField
             checked={this.props.store.IsHide}
@@ -538,25 +538,25 @@ const NewForm = observer(class NewFormClass extends React.Component<INewFormProp
             dirty={this.state.dirty}
             condition={this.props.store.hideInvalid === true}
           />
-        </FormRow>
+        </FormRow> */}
 
-        <FormRow label='Confidential'  required={false} 
+        {/* <FormRow label='Confidential'  required={false} 
           tooltip='In order to use this option your request must be approved by legal by email'
         >
           <Checkbox
             checked={this.props.store.IsConfidential}
             onChange={(event, isChecked) => this.props.store.IsConfidential = isChecked}
           />
-        </FormRow>
+        </FormRow> */}
 
-        <FormRow label='External Notes VSIB'  required={false} 
+        {/* <FormRow label='External Notes VSIB'  required={false} 
           tooltip='Information  visible in VSIB under note, e.g Project code, Product description'
         >
           <TextField
             value={this.props.store.ExternalNotesVSIB}
             onChanged={(value) => this.props.store.ExternalNotesVSIB = value}
           />
-        </FormRow>
+        </FormRow> */}
 
         <FormRow
           label='Physical Storage'

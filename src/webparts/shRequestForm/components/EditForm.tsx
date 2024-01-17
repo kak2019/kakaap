@@ -308,7 +308,7 @@ const EditForm = observer(class EditFormClass extends React.Component<IEditFormP
         }
 
 
-                {this.props.store.AgreementType === 'Price Agreement' &&
+                {(this.props.store.AgreementType === 'Price Agreement' || this.props.store.AgreementType === 'Price Agreement Amendment') &&
                     <FormRow
                         label='In case the Price Agreement includes Raw Material Clause , please provide the validation/approval from the RM Team (hyperlink)'
                         tooltip='In case the Price Agreement includes Raw Material Clause , please provide the validation/approval from the RM Team'
@@ -345,7 +345,7 @@ const EditForm = observer(class EditFormClass extends React.Component<IEditFormP
                     </FormRow>
                 }
 
-                <FormRow label='Amendment'
+                {/* <FormRow label='Amendment'
                     required={true}
                     tooltip='Provide Parma number and valid date of the agreement in VSIB which this amendment belongs to.'
                 >
@@ -361,7 +361,7 @@ const EditForm = observer(class EditFormClass extends React.Component<IEditFormP
                         dirty={this.state.dirty}
                         condition={this.props.store.amendmentInvalid === true}
                     />
-                </FormRow>
+                </FormRow> */}
 
                 <FormRow label='Main Segment Code'
                     required={true}
@@ -434,7 +434,7 @@ const EditForm = observer(class EditFormClass extends React.Component<IEditFormP
                     <Label>{this.props.store.approvalLevel}</Label>
                 </FormRow>
 
-                <FormRow label='Agreement Signed'
+                {/* <FormRow label='Agreement Signed'
                     tooltip='Tick the brand this agreement is covering. "All" for most global agreements. For price agreements it can be 1 or several brands.'
                 >
                     <div className='ms-Grid-row pad-top'>
@@ -449,7 +449,7 @@ const EditForm = observer(class EditFormClass extends React.Component<IEditFormP
                                 onChanged={(item) => this.props.store.FunctionBy = item.key}
                             />
                         </div>
-                    </div>
+                    </div> */}
                     {/* <div className='ms-Grid-row pad-top'>
                         <div className="ms-Grid-col ms-sm12 ms-lg3 ms-formlabel">
                             For
@@ -464,7 +464,7 @@ const EditForm = observer(class EditFormClass extends React.Component<IEditFormP
                             />
                         </div>
                     </div> */}
-                </FormRow>
+                {/* </FormRow> */}
 
                 <FormRow label='Valid From'
                     required={true}
@@ -534,7 +534,7 @@ const EditForm = observer(class EditFormClass extends React.Component<IEditFormP
                     />
                 </FormRow>
 
-                <FormRow label='Hide'
+                {/* <FormRow label='Hide'
                     tooltip='This option is used in order to hide old agreements from VSIB'>
                     <CheckboxWithTextField
                         checked={this.props.store.IsHide}
@@ -547,25 +547,25 @@ const EditForm = observer(class EditFormClass extends React.Component<IEditFormP
                         dirty={this.state.dirty}
                         condition={this.props.store.hideInvalid === true}
                     />
-                </FormRow>
+                </FormRow> */}
 
-                <FormRow label='Confidential'
+                {/* <FormRow label='Confidential'
                     tooltip='In order to use this option your request must be approved by legal by email'
                 >
                     <Checkbox
                         checked={this.props.store.IsConfidential}
                         onChange={(event, isChecked) => this.props.store.IsConfidential = isChecked}
                     />
-                </FormRow>
+                </FormRow> */}
 
-                <FormRow label='External Notes VSIB'
+                {/* <FormRow label='External Notes VSIB'
                     tooltip='Information  visible in VSIB under note, e.g Project code, Product description'
                 >
                     <TextField
                         value={this.props.store.ExternalNotesVSIB}
                         onChanged={(value) => this.props.store.ExternalNotesVSIB = value}
                     />
-                </FormRow>
+                </FormRow> */}
 
                 <FormRow
                     label='Physical Storage'

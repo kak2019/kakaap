@@ -98,6 +98,10 @@ const agreementTypeOptions = [
             text: 'Price Agreement'
         },
         {
+            key: 'Price Agreement Amendment',
+            text: 'Price Agreement Amendment'
+        },
+        {
             key: 'Raw Material Agreement',
             text: 'Raw Material Agreement'
         },

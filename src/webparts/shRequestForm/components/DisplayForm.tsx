@@ -192,7 +192,7 @@ const DisplayForm = observer(class DisplayFormClass extends React.Component<IDis
                 
 
                 {
-                    this.props.store.AgreementType === 'Price Agreement' &&
+                    (this.props.store.AgreementType === 'Price Agreement' || this.props.store.AgreementType === 'Price Agreement Amendment') &&
                     <FormRow
                         label='Price agreement'
                     >
@@ -212,14 +212,14 @@ const DisplayForm = observer(class DisplayFormClass extends React.Component<IDis
                     </FormRow>
                 }
 
-                <FormRow label='Amendment'>
+                {/* <FormRow label='Amendment'>
                     <Checkbox
                         //defaultChecked={this.props.store.IsAmendment}
                         checked={this.props.store.IsAmendment}
                         disabled={true}
                     />
-                    {/* <Label>{this.props.store.AmendmentDetails}</Label> */}
-                </FormRow>
+                    
+                </FormRow> */}
 
                 <FormRow label='Main Segment Code'>
                     <Label>{this.props.store.MainSegmentCode}</Label>
@@ -261,7 +261,7 @@ const DisplayForm = observer(class DisplayFormClass extends React.Component<IDis
                     <Label>{this.props.store.approvalLevel}</Label>
                 </FormRow>
 
-                <FormRow label='Agreement Signed'>
+                {/* <FormRow label='Agreement Signed'>
                     <div className='ms-Grid-row pad-top'>
                         <div className="ms-Grid-col ms-sm12 ms-lg3 ms-formlabel">
                             By
@@ -269,7 +269,7 @@ const DisplayForm = observer(class DisplayFormClass extends React.Component<IDis
                         <div className="ms-Grid-col ms-sm12 ms-lg9 ms-formlabel">
                             <Label>{this.props.store.FunctionBy}</Label>
                         </div>
-                    </div>
+                    </div> */}
                     {/* <div className='ms-Grid-row pad-top'>
                         <div className="ms-Grid-col ms-sm12 ms-lg3 ms-formlabel">
                             For
@@ -278,7 +278,7 @@ const DisplayForm = observer(class DisplayFormClass extends React.Component<IDis
                         <Label>{this.props.store.FunctionFor.slice().join(', ')}</Label>
                         </div>
                     </div> */}
-                </FormRow>
+                {/* </FormRow> */}
 
                 <FormRow label='Valid From'>
                     <Label>{kendo.toString(this.props.store.ValidDateFromAsDate,"yyyy-MM-dd")}</Label>
@@ -316,7 +316,7 @@ const DisplayForm = observer(class DisplayFormClass extends React.Component<IDis
                     <Label>{this.props.store.SourcingCaseNumber}</Label>
                 </FormRow>
 
-                <FormRow label='Hide'>
+                {/* <FormRow label='Hide'>
                     <Checkbox
                         //defaultChecked={this.props.store.IsHide}
                         checked={this.props.store.IsHide}
@@ -324,19 +324,19 @@ const DisplayForm = observer(class DisplayFormClass extends React.Component<IDis
                     />
                     <Label>{this.props.store.HideDetails}</Label>
 
-                </FormRow>
+                </FormRow> */}
 
-                <FormRow label='Confidential' >
+                {/* <FormRow label='Confidential' >
                     <Checkbox
                         //defaultChecked={this.props.store.IsConfidential}
                         checked = {this.props.store.IsConfidential}
                         disabled={true}
                     />
-                </FormRow>
+                </FormRow> */}
 
-                <FormRow label='External Notes VSIB'>
+                {/* <FormRow label='External Notes VSIB'>
                     <Label>{this.props.store.ExternalNotesVSIB}</Label>
-                </FormRow>
+                </FormRow> */}
 
                 <FormRow label='Physical Storage'>
                     <Label>{this.props.store.PhysicalStorage}</Label>
