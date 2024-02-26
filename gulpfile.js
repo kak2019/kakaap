@@ -7,7 +7,8 @@ const build = require('@microsoft/sp-build-web');
 const { merge } =  require('webpack-merge');
 
 const webpack = require('webpack');
-
+const { addFastServe } = require("spfx-fast-serve-helpers");
+addFastServe(build);
 build.addSuppression(`Warning - [sass] The local CSS class 'ms-Grid' is not camelCase and will not be type-safe.`);
 
 build.configureWebpack.setConfig({
@@ -19,7 +20,7 @@ build.configureWebpack.setConfig({
         console.log(process.env);
         let defineOptions = {};
 
-        if (azureFunctionBaseUrl && azureFunctionBaseUrl && !isDev == "") {
+        if (azureFunctionBaseUrl && azureFunctionBaseUrl && isDev == "") {
             console.log('***********    Applying development settings to webpack *********************');
             defineOptions = {
                 'azureFunctionBaseUrl': JSON.stringify(azureFunctionBaseUrl),
