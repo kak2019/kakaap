@@ -8,6 +8,7 @@ import { CONST } from '../config/const';
 import { appConfig } from '../config/app.config';
 import { decisionTypeOptions } from '../config/decisionTypeOptions';
 import helpers from '../config/Helpers';
+import { devationOptions } from '../config/deviationOptions';
 
 class AgreementRequestClass {
   // region BASIC PROPERTIES
@@ -21,6 +22,7 @@ class AgreementRequestClass {
   @MobiX.observable private ManagerName: any = '';
   @MobiX.observable private ParmaNumber: any = '';
   @MobiX.observable private DecisionType: any = '';
+  @MobiX.observable private DevationType: any = '';
   @MobiX.observable private SupplierName: any = '';
   @MobiX.observable private ConnectAgreementTo: any = '';
   @MobiX.observable private AgreementType: any = '';
@@ -85,6 +87,7 @@ class AgreementRequestClass {
 
   @MobiX.observable private token: any;
   @MobiX.observable private aadClient: any;
+
 
   constructor() {
 
@@ -380,7 +383,6 @@ class AgreementRequestClass {
     //let approvalLvl = 'Senior Vice President';
     let approvalLvl = 'Manager';
     
-    //pass
     if(this.DecisionType ==="Sourcing Decision"){
       switch(this.AgreementType){
         case 'Confidentiality Agreement': this.IsDeviation?  approvalLvl = 'Manager' : approvalLvl = 'Agreement Controller';break;
@@ -568,6 +570,7 @@ class AgreementRequestClass {
       this.ManagerName = '';
       this.ParmaNumber = '';
       this.DecisionType = '';
+      this.DevationType = '';
       this.SupplierName = '';
       this.ConnectAgreementTo = '';
       this.AgreementType = '';
@@ -728,6 +731,17 @@ class AgreementRequestClass {
         this.ProductDevelopmentName = '';
       }
     });
+  }
+
+  //New Add pass
+  public onDeviationTypeSelected(value) {
+    MobiX.runInAction(() => {
+      this.DevationType= value;
+      this.IsDeviation = value !== devationOptions[1].key;
+    });
+    //   if (value !== devationOptions[1].key) {
+    //     this.IsDeviation = true;
+    // }else{this.IsDeviation = true}});
   }
 
   public onAgreementTypeSelected(value) {
