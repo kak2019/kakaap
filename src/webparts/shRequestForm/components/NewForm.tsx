@@ -273,7 +273,7 @@ const NewForm = observer(class NewFormClass extends React.Component<INewFormProp
           this.store.DecisionType === decisionTypeOptions[1].key &&   //Non Sourcing Decision
           <FormRow label='Please provide the id or name of the VP for the concerned Engineering department'
             required={true} tooltip=''
-          >
+          ><div style={{paddingTop:30}}>
             <PeoplePicker
               store={this.props.store}
               onPersonDeselected={this.props.store.onPdDeselected}
@@ -285,6 +285,7 @@ const NewForm = observer(class NewFormClass extends React.Component<INewFormProp
               dirty={this.state.dirty}
               condition={this.props.store.pdDevelopmentInvalid === true}
             />
+            </div>
           </FormRow>
         }
         {/* {this.props.store.AgreementType === 'Miscellaneous Agreement' &&
@@ -321,10 +322,11 @@ const NewForm = observer(class NewFormClass extends React.Component<INewFormProp
           />
         </FormRow>}
         {(this.store.AgreementType === 'Development Agreement' || this.store.AgreementType === 'Framework Agreement' || this.store.AgreementType === 'Miscellaneous Agreement' || this.store.AgreementType === 'Price Agreement' || this.store.AgreementType === 'Price Agreement Amendment' || this.store.AgreementType === 'Raw Material Agreement') &&
-          this.store.DecisionType === decisionTypeOptions[0].key && <FormRow label='Strategic Segment' required={false}
+          this.store.DecisionType === decisionTypeOptions[0].key && <FormRow label='Strategic Segment' required={true}
         // tooltip='Provide Parma number and valid date of the agreement in VSIB which this amendment belongs to.'
-        > <div className='ms-Grid-row pad-top'>
-            <div className="ms-Grid-col ms-sm12 ms-lg12 ms-formlabel">
+        > 
+        {/* <div className='ms-Grid-row pad-top'> */}
+            {/* <div className="ms-Grid-col ms-sm12 ms-lg12 ms-formlabel"> */}
               {/* <Checkbox
                 checked={this.props.store.IsstrategicSegment}
                 onChange={(event, isChecked) => this.props.store.IsstrategicSegment = isChecked}
@@ -350,20 +352,22 @@ const NewForm = observer(class NewFormClass extends React.Component<INewFormProp
                   },
                 }}
               />
-            </div>
-            </div>
+            {/* </div> */}
+            {/* </div> */}
           
           {/* <CheckboxWithTextField
             checked={this.props.store.IsstrategicSegment}
             store={this.props.store}
             checkboxName={'IsstrategicSegment'}
             textfieldName={'strategicSegmentDetails'}
-          />
+          /> */}
+          {/* <div style={{paddingLeft:8}}> */}
           <ValidationMessage
-            message='Strategic SegmentDetails required when checkbox checked'
+            message='Strategic Type required'
             dirty={this.state.dirty}
             condition={this.props.store.strategicSegmentInvalid === true}
-          /> */}
+          />
+          {/* </div> */}
         </FormRow>}
         
 {(this.store.AgreementType === 'Development Agreement' || this.store.AgreementType === 'Framework Agreement' || this.store.AgreementType === 'Miscellaneous Agreement' || this.store.AgreementType === 'Price Agreement' || this.store.AgreementType === 'Price Agreement Amendment' || this.store.AgreementType === 'Raw Material Agreement') &&
@@ -503,8 +507,8 @@ const NewForm = observer(class NewFormClass extends React.Component<INewFormProp
           required={true}
 
         >
-          <div className='ms-Grid-row pad-top'>
-            <div className="ms-Grid-col ms-sm12 ms-lg12 ms-formlabel">
+          {/* <div className='ms-Grid-row pad-top'> */}
+            {/* <div className="ms-Grid-col ms-sm12 ms-lg12 ms-formlabel"> */}
               {/* <Checkbox
                 checked={this.props.store.IsDeviation}
                 onChange={(event, isChecked) => this.props.store.IsDeviation = isChecked}
@@ -530,7 +534,7 @@ const NewForm = observer(class NewFormClass extends React.Component<INewFormProp
                   },
                 }}
               />
-            </div>
+            {/* </div> */}
 
             {this.props.store.IsDeviation &&
               <div className="ms-Grid-col ms-sm12 ms-lg12 ms-formlabel">
@@ -538,40 +542,45 @@ const NewForm = observer(class NewFormClass extends React.Component<INewFormProp
                   required={true}
                   onChanged={(value) => this.props.store.DeviationDetails = value}
                   value={this.props.store.DeviationDetails}
+                  placeholder='Input or upload the deviation clauses summary'
                 />
-                <ValidationMessage
+                {/* <ValidationMessage
                   message='Deviation Details are required'
                   dirty={this.state.dirty}
                   condition={this.props.store.deviationInvalid === true }
-                />
+                /> */}
                 <div id="Deviations">
                   <Upload />
                 </div>
               </div>
             }
+            {/* <div style={{paddingLeft:8}}> */}
               <ValidationMessage
                   message='Deviation for Agreement Template are required'
                   dirty={this.state.dirty}
                   condition={!this.props.store.DevationType}
+                  
                 />
-          </div>
+                {/* </div> */}
+          {/* </div> */}
         </FormRow>}
 
-        {this.props.store.AgreementType !== 'Parental Guarantee Agreement' &&
-          <FormRow label='Legal approval on deviated items' required={true}
+        {this.props.store.AgreementType !== 'Parental Guarantee Agreement' && this.props.store.IsDeviation&&
+          <FormRow label='Legal approval on deviated items' 
+          required={true}
           tooltip=''>
 
             <div id="LegalApproval">
               <Upload 
-              //  select={(event) => this.props.store.onSignedAgreementAdded(event)}
-              //  remove={(event) => this.props.store.onSignedAgreementRemoved(event)}
+              select={(event) => this.props.store.onLegalFileAdded(event)}
+               remove={(event) => this.props.store.onLegalFileRemoved(event)}
                />
             </div>
-            {/* <ValidationMessage
-                  message='Deviation Details are required'
+            <ValidationMessage
+                  message='Legal approval file are required'
                   dirty={this.state.dirty}
-                  condition={this.props.store.LegalApprovalInvalid === true }
-                /> */}
+                  condition={this.props.store.LegalFileInvalid === true }
+                />
         </FormRow>
         }
 

@@ -70,6 +70,7 @@ class AgreementRequestClass {
   @MobiX.observable private IsMiscSet: boolean = false;
   //ContactAdress: '';
   @MobiX.observable private SignedAgreements: any = '';
+  @MobiX.observable private LegalFile: any = '';
   @MobiX.observable private ReturnToName: any = '';
   @MobiX.observable private ReturnToPhone: any = '';
   @MobiX.observable private ReturnToCompany: any = '';
@@ -445,7 +446,7 @@ class AgreementRequestClass {
     return this.IsAmendment === true && this.AmendmentDetails === '' ? true : false;
   }
   public get strategicSegmentInvalid() {
-    return this.IsstrategicSegment === true && this.strategicSegmentDetails === '' ? true : false;
+    return this.StrategicType === '' ? true : false;
   }
   public get rawMaterialInvalid() {
     return this.AgreementType === 'Raw Material Agreement' && this.RawMaterialDetails === '' ? true : false;
@@ -508,6 +509,9 @@ class AgreementRequestClass {
 
   public get signedAgreementInvalid() {
     return this.SignedAgreements === '' ? true : false;
+  }
+  public get LegalFileInvalid() {
+    return this.LegalFile === '' ? true : false;
   }
 
 
@@ -614,6 +618,7 @@ class AgreementRequestClass {
       this.ReturnTo = '';
       this.ContactAdress = '';
       this.SignedAgreements = '';
+      this.LegalFile = '';
       this.ReturnToName = '';
       this.ReturnToPhone = '';
       this.ReturnToCompany = '';
@@ -892,6 +897,33 @@ class AgreementRequestClass {
     }
     MobiX.runInAction(() => {
       this.SignedAgreements = array.join('#');
+    });
+  }
+  public onLegalFileAdded(e) {
+    if (e.files.length > 0) {
+      let array = [];
+      if (this.LegalFile !== '') {
+        array = this.LegalFile.split('#');
+      }
+      for (let i = 0; i < e.files.length; ++i) {
+        array.push(e.files[i].name);
+      }
+      MobiX.runInAction(() => {
+        this.LegalFile = array.join('#');
+      });
+    }
+  }
+
+
+  public onLegalFileRemoved(e) {
+    let array = this.LegalFile.split('#');
+    for (let i = 0; i < e.files.length; ++i) {
+      array = array.filter((element) => {
+        return element !== e.files[i].name;
+      });
+    }
+    MobiX.runInAction(() => {
+      this.LegalFile = array.join('#');
     });
   }
   public onCloseFiletAdded(e) {

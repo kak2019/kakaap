@@ -43,33 +43,32 @@ import { contactOptions } from '../../../config/contactOptions';
 import { appConfig } from "../../../config/app.config";
 import { contractSpendOptions } from '../../../config/contractSpending';
 import { devationOptions } from '../../../config/deviationOptions'; // this is for changing checkbox to chioce group 
-import {strategicSegmentOptions} from '../../../config/strategicSegment';
-interface IEditFormProps
-{
-  store:any;
-  user:any;
-  history:any;
-  aadClient: any;
-  token: any;
-  id:any;
+import { strategicSegmentOptions } from '../../../config/strategicSegment';
+interface IEditFormProps {
+    store: any;
+    user: any;
+    history: any;
+    aadClient: any;
+    token: any;
+    id: any;
 }
-interface IEditFormState{
-    dirty:any;
-  }
-const EditForm = observer(class EditFormClass extends React.Component<IEditFormProps,IEditFormState> {
+interface IEditFormState {
+    dirty: any;
+}
+const EditForm = observer(class EditFormClass extends React.Component<IEditFormProps, IEditFormState> {
     public store: any;
-    constructor(props:IEditFormProps) {
+    constructor(props: IEditFormProps) {
         super(props);
         this.store = this.props.store;
-    this.store.aadClient = this.props.aadClient;
-    this.store.token = this.props.token;
+        this.store.aadClient = this.props.aadClient;
+        this.store.token = this.props.token;
         this.state = { dirty: false };
     }
 
     public componentWillMount() {
         this.props.store.getRequest(this.props.id);
         this.props.store.getGroupUsers();
-        
+
     }
 
 
@@ -79,7 +78,7 @@ const EditForm = observer(class EditFormClass extends React.Component<IEditFormP
     // }
     public makeDirty(cb?: () => void) {
         this.setState({ dirty: true }, cb);
-      }
+    }
     public render() {
         return (
             <div className='ms-Grid pad-left'>
@@ -129,14 +128,14 @@ const EditForm = observer(class EditFormClass extends React.Component<IEditFormP
                 >
 
                     {this.props.store.ApproverChain.length === 4 &&
-                     <ListItemPicker
-              onSelected={this.props.store.onParmaSelected}
-              onDeselected={this.props.store.onParmaDeselected}
-              resolveDelay={300}
-              aadClient={this.props.aadClient}
-              store={this.props.store}
-              defaultValue={this.props.store.ParmaNumber}
-            />
+                        <ListItemPicker
+                            onSelected={this.props.store.onParmaSelected}
+                            onDeselected={this.props.store.onParmaDeselected}
+                            resolveDelay={300}
+                            aadClient={this.props.aadClient}
+                            store={this.props.store}
+                            defaultValue={this.props.store.ParmaNumber}
+                        />
                         // <ParmaNumberPicker
                         //     required={true}
                         //     defaultValue={this.props.store.ParmaNumber}
@@ -172,7 +171,7 @@ const EditForm = observer(class EditFormClass extends React.Component<IEditFormP
                     <div className='ms-Grid-row pad-top'>
                         <div className="ms-Grid-col ms-sm12 ms-lg3 ms-formlabel">
                             Type
-            </div>
+                        </div>
                         <div className="ms-Grid-col ms-sm12 ms-lg9 ms-formlabel">
                             <Dropdown
                                 selectedKey={this.props.store.AgreementType}
@@ -192,7 +191,7 @@ const EditForm = observer(class EditFormClass extends React.Component<IEditFormP
                     <div className='ms-Grid-row pad-top'>
                         <div className="ms-Grid-col ms-sm12 ms-lg3 ms-formlabel">
                             Description
-          </div>
+                        </div>
                         <div className="ms-Grid-col ms-sm12 ms-lg9 ms-formlabel">
                             <TextField
                                 multiline
@@ -206,19 +205,19 @@ const EditForm = observer(class EditFormClass extends React.Component<IEditFormP
                     required={true}
                 >
                     {this.props.store.ValidDateFromAsDate &&      //the below is a fix/workaround for DatePicker not displaying date if the date is today
-                    <DatePicker
-                        value={this.props.store.ValidDateFromAsDate}
-                        onSelectDate={(date) => {
-                            this.props.store.ValidDateFrom = date;
-                        }}
-                    />}
+                        <DatePicker
+                            value={this.props.store.ValidDateFromAsDate}
+                            onSelectDate={(date) => {
+                                this.props.store.ValidDateFrom = date;
+                            }}
+                        />}
                     {this.props.store.ValidDateFromAsDate === null &&
-                    <DatePicker
-                        value={this.props.store.ValidDateFromAsDate}
-                        onSelectDate={(date) => {
-                            this.props.store.ValidDateFrom = date;
-                        }}
-                    />}
+                        <DatePicker
+                            value={this.props.store.ValidDateFromAsDate}
+                            onSelectDate={(date) => {
+                                this.props.store.ValidDateFrom = date;
+                            }}
+                        />}
                     <ValidationMessage
                         message='Valid Date from is required'
                         dirty={this.state.dirty}
@@ -227,75 +226,76 @@ const EditForm = observer(class EditFormClass extends React.Component<IEditFormP
                 </FormRow>
 
                 {
-        ['Confidentiality Agreement', 'Parental Guarantee Agreement', 'Price Agreement', 'Price Agreement Amendment', 'Raw Material Agreement'].some(val => val === this.props.store.AgreementType) 
-        &&<FormRow label='Valid To' required={this.props.store.IsPriceOrSoftware === true}>
-                    {this.props.store.ValidDateToAsDate &&      //the below is a fix/workaround for DatePicker not displaying date if the date is today
-                    <DatePicker
-                        value={this.props.store.ValidDateToAsDate}
-                        onSelectDate={(date) => {
-                            this.props.store.ValidDateTo = date;
-                        }}
-                    />}
-                    {this.props.store.ValidDateToAsDate === null &&
-                    <DatePicker
-                        value={this.props.store.ValidDateToAsDate}
-                        onSelectDate={(date) => {
-                            this.props.store.ValidDateTo = date;
-                        }}
-                    />}
-                    <ValidationMessage
-                        message='Valid To Date from is required'
-                        dirty={this.state.dirty}
-                        condition={this.props.store.validDateToInvalid === true}
-                    />
-                </FormRow>}
+                    ['Confidentiality Agreement', 'Parental Guarantee Agreement', 'Price Agreement', 'Price Agreement Amendment', 'Raw Material Agreement'].some(val => val === this.props.store.AgreementType)
+                    && <FormRow label='Valid To' required={this.props.store.IsPriceOrSoftware === true}>
+                        {this.props.store.ValidDateToAsDate &&      //the below is a fix/workaround for DatePicker not displaying date if the date is today
+                            <DatePicker
+                                value={this.props.store.ValidDateToAsDate}
+                                onSelectDate={(date) => {
+                                    this.props.store.ValidDateTo = date;
+                                }}
+                            />}
+                        {this.props.store.ValidDateToAsDate === null &&
+                            <DatePicker
+                                value={this.props.store.ValidDateToAsDate}
+                                onSelectDate={(date) => {
+                                    this.props.store.ValidDateTo = date;
+                                }}
+                            />}
+                        <ValidationMessage
+                            message='Valid To Date from is required'
+                            dirty={this.state.dirty}
+                            condition={this.props.store.validDateToInvalid === true}
+                        />
+                    </FormRow>}
 
                 {
-                    ['Development Agreement', 'Framework Agreement', 'Miscellaneous Agreement', 'Price Agreement', 'Price Agreement Amendment', 'Raw Material Agreement'].some(val => val === this.props.store.AgreementType) 
-                    &&<FormRow label='Decision Type'
-                    required={true}
-                    tooltip={
-                        <div>
-                            <p>
-                                <u>Sourcing Decision:</u>  Agreements that will be presented to the Sourcing Board/Commitee<br />
-                                <u>Non Sourcing Decision:</u> NDA’s, supplements, amendments and appendixes to an already existing agreement<br/>
-                                For more information check this document:
-                        </p>
-                            <IconButton
-                                iconProps={{ iconName: 'WordDocument' }}
-                                //href={appConfig.sourcingFilePath}
-                                href={document.location.href.slice(0,document.location.href.indexOf("/SitePages"))+"/Shared%20Documents/SOURCING%20OR%20NON%20SOURCING.DOCX"}
-                               
-                            />
-                        </div>
-                    }
-                >
-                    <ChoiceGroup
-                        selectedKey={this.props.store.DecisionType}
+                    ['Development Agreement', 'Framework Agreement', 'Miscellaneous Agreement', 'Price Agreement', 'Price Agreement Amendment', 'Raw Material Agreement'].some(val => val === this.props.store.AgreementType)
+                    && <FormRow label='Decision Type'
                         required={true}
-                        options={decisionTypeOptions}
-                        onChange={(event, option) => this.props.store.DecisionType = option.key}
-                    />
-                    <ValidationMessage
-                        message='Decision Type is required'
-                        dirty={this.state.dirty}
-                        condition={this.props.store.decisionTypeInvalid === true}
-                    />
-                </FormRow>
+                        tooltip={
+                            <div>
+                                <p>
+                                    <u>Sourcing Decision:</u>  Agreements that will be presented to the Sourcing Board/Commitee<br />
+                                    <u>Non Sourcing Decision:</u> NDA’s, supplements, amendments and appendixes to an already existing agreement<br />
+                                    For more information check this document:
+                                </p>
+                                <IconButton
+                                    iconProps={{ iconName: 'WordDocument' }}
+                                    //href={appConfig.sourcingFilePath}
+                                    href={document.location.href.slice(0, document.location.href.indexOf("/SitePages")) + "/Shared%20Documents/SOURCING%20OR%20NON%20SOURCING.DOCX"}
 
-    }
+                                />
+                            </div>
+                        }
+                    >
+                        <ChoiceGroup
+                            selectedKey={this.props.store.DecisionType}
+                            required={true}
+                            options={decisionTypeOptions}
+                            onChange={(event, option) => this.props.store.DecisionType = option.key}
+                        />
+                        <ValidationMessage
+                            message='Decision Type is required'
+                            dirty={this.state.dirty}
+                            condition={this.props.store.decisionTypeInvalid === true}
+                        />
+                    </FormRow>
+
+                }
 
 
-                
 
-               
+
+
 
                 {/* {this.props.store.AgreementType === 'Development Agreement' &&
                 this.props.store.DecisionType === decisionTypeOptions[1].key &&   //Non Sourcing Decision */}
-                     {(this.store.AgreementType === 'Development Agreement' || this.store.AgreementType === 'Framework Agreement' || this.store.AgreementType === 'Miscellaneous Agreement' || this.store.AgreementType === 'Price Agreement' || this.store.AgreementType === 'Price Agreement Amendment' || this.store.AgreementType === 'Raw Material Agreement') &&
-          this.store.DecisionType === decisionTypeOptions[1].key && <FormRow label='Please provide the id or name of the VP for the concerned Engineering department'
+                {(this.store.AgreementType === 'Development Agreement' || this.store.AgreementType === 'Framework Agreement' || this.store.AgreementType === 'Miscellaneous Agreement' || this.store.AgreementType === 'Price Agreement' || this.store.AgreementType === 'Price Agreement Amendment' || this.store.AgreementType === 'Raw Material Agreement') &&
+                    this.store.DecisionType === decisionTypeOptions[1].key && <FormRow label='Please provide the id or name of the VP for the concerned Engineering department'
                         required={true}
                     >
+                        <div style={{paddingTop:30}}>
                         <PeoplePicker
                             store={this.props.store}
                             onPersonDeselected={this.props.store.onPdDeselected}
@@ -308,14 +308,15 @@ const EditForm = observer(class EditFormClass extends React.Component<IEditFormP
                             dirty={this.state.dirty}
                             condition={this.props.store.pdDevelopmentInvalid === true}
                         />
+                        </div>
                     </FormRow>
                 }
-                {this.props.store.AgreementType !== 'Confidentiality Agreement' && this.props.store.AgreementType !== 'Parental Guarantee Agreement' &&<FormRow label='Main Segment Code'
+                {this.props.store.AgreementType !== 'Confidentiality Agreement' && this.props.store.AgreementType !== 'Parental Guarantee Agreement' && <FormRow label='Main Segment Code'
                     required={true}
                 >
                     {this.props.store.ApproverChain.length === 4 &&
                         <SegmentPicker
-                            defaultValue={this.props.store.MainSegmentCode }// || this.props.store.onSegmentSelected } //{this.props.store.mainSegmentCodeInvalid === true ? this.props.store.onSegmentSelected : this.props.store.MainSegmentCode }
+                            defaultValue={this.props.store.MainSegmentCode}// || this.props.store.onSegmentSelected } //{this.props.store.mainSegmentCodeInvalid === true ? this.props.store.onSegmentSelected : this.props.store.MainSegmentCode }
                             store={this.props.store}
                             onDeselected={this.props.store.onSegmentDeselected}
                             onSelected={this.props.store.onSegmentSelected}
@@ -327,7 +328,7 @@ const EditForm = observer(class EditFormClass extends React.Component<IEditFormP
                         condition={this.props.store.mainSegmentCodeInvalid === true}
                     />
                 </FormRow>}
-                 {/* {this.props.store.AgreementType === 'Miscellaneous Agreement' && 
+                {/* {this.props.store.AgreementType === 'Miscellaneous Agreement' && 
                     <FormRow label='Please provide the email id or name of the Misc Approver'
                         required={true} 
                     >
@@ -346,43 +347,49 @@ const EditForm = observer(class EditFormClass extends React.Component<IEditFormP
                         />
                     </FormRow>
                     } */}
-                     {/* {this.props.store.showStrategic&&<FormRow label='Strategic segment' required={false} */}
+                {/* {this.props.store.showStrategic&&<FormRow label='Strategic segment' required={false} */}
                 {(this.store.AgreementType === 'Development Agreement' || this.store.AgreementType === 'Framework Agreement' || this.store.AgreementType === 'Miscellaneous Agreement' || this.store.AgreementType === 'Price Agreement' || this.store.AgreementType === 'Price Agreement Amendment' || this.store.AgreementType === 'Raw Material Agreement') &&
-          this.store.DecisionType === decisionTypeOptions[0].key && <FormRow label='Strategic segment' required={false}
-          // tooltip='Provide Parma number and valid date of the agreement in VSIB which this amendment belongs to.'
-        > <div className='ms-Grid-row pad-top'>
-        <div className="ms-Grid-col ms-sm12 ms-lg3 ms-formlabel">
-          {/* <Checkbox
+                    this.store.DecisionType === decisionTypeOptions[0].key && <FormRow label='Strategic segment' required={false}
+                    // tooltip='Provide Parma number and valid date of the agreement in VSIB which this amendment belongs to.'
+                    >
+                        {/* <div className='ms-Grid-row pad-top'> */}
+                        {/* <div className="ms-Grid-col ms-sm12 ms-lg3 ms-formlabel"> */}
+                        {/* <Checkbox
             checked={this.props.store.IsstrategicSegment}
             onChange={(event, isChecked) => this.props.store.IsstrategicSegment = isChecked}
           /> */}
-           <ChoiceGroup
-                required={true}
-                options={strategicSegmentOptions} //pass
-                selectedKey={this.props.store.IsstrategicSegment===true?'Strategic segment':'Non strategic segment'}
-                onChange={(event, option) => {
-                  this.props.store.onStrategicTypeSelected(option.key);
-                }}
-                styles={{
-                  root: {
-                    // marginRight: 15, // 在选项之间添加右边距，根据需要调整
-                    width:500
-                  },
+                        <ChoiceGroup
+                            required={true}
+                            options={strategicSegmentOptions} //pass
+                            selectedKey={this.props.store.IsstrategicSegment === true ? 'Strategic segment' : 'Non strategic segment'}
+                            onChange={(event, option) => {
+                                this.props.store.onStrategicTypeSelected(option.key);
+                            }}
+                            styles={{
+                                root: {
+                                    // marginRight: 15, // 在选项之间添加右边距，根据需要调整
+                                    width: 500
+                                },
 
-                  flexContainer: {
-                    display: 'flex',
-                    flexDirection: 'row', // 确保选项横向排列
-                    flexWrap: 'nowrap', // 防止选项换行
-                    overflowX: 'auto', // 允许水平滚动
-                    width: '100%', // 或者更具体的宽度，根据需要调整
-                  },
-                }}
-              />
-        </div>
-        </div>
-        
-        </FormRow>}
-                {this.props.store.showYearlySpend &&
+                                flexContainer: {
+                                    display: 'flex',
+                                    flexDirection: 'row', // 确保选项横向排列
+                                    flexWrap: 'nowrap', // 防止选项换行
+                                    overflowX: 'auto', // 允许水平滚动
+                                    width: '100%', // 或者更具体的宽度，根据需要调整
+                                },
+                            }}
+                        />
+                        {/* </div> */}
+                        {/* </div> */}
+                        <ValidationMessage
+                            message='Strategic Type required'
+                            dirty={this.state.dirty}
+                            condition={this.props.store.strategicSegmentInvalid === true}
+                        />
+                    </FormRow>}
+                {
+                    this.props.store.showYearlySpend &&
                     <FormRow label='Yearly spend'
                         required={true}
                     >
@@ -399,25 +406,26 @@ const EditForm = observer(class EditFormClass extends React.Component<IEditFormP
                         />
                     </FormRow>
                 }
-                {this.props.store.showContractSpend &&
-          <FormRow label='Contract Spending'
-            required={true} tooltip=''
-          >
-            <ChoiceGroup
-            selectedKey={this.props.store.contractSpend}
-              required={true}
-              options={contractSpendOptions}
-              onChange={(event, option) => this.props.store.contractSpend = option.key}
-            />
-            <ValidationMessage
-              message='Contract Spent is required'
-              dirty={this.state.dirty}
-              condition={this.props.store.contractSpendInvalid === true}
-            />
-          </FormRow>
-        }
+                {
+                    this.props.store.showContractSpend &&
+                    <FormRow label='Contract Spending'
+                        required={true} tooltip=''
+                    >
+                        <ChoiceGroup
+                            selectedKey={this.props.store.contractSpend}
+                            required={true}
+                            options={contractSpendOptions}
+                            onChange={(event, option) => this.props.store.contractSpend = option.key}
+                        />
+                        <ValidationMessage
+                            message='Contract Spent is required'
+                            dirty={this.state.dirty}
+                            condition={this.props.store.contractSpendInvalid === true}
+                        />
+                    </FormRow>
+                }
 
-{(this.props.store.AgreementType === 'Price Agreement' || this.props.store.AgreementType === 'Price Agreement Amendment') &&
+                {(this.props.store.AgreementType === 'Price Agreement' || this.props.store.AgreementType === 'Price Agreement Amendment') &&
                     <FormRow
                         label='In case the Price Agreement includes Raw Material Clause , please provide the validation/approval from the RM Team'
                         tooltip='In case the Price Agreement includes Raw Material Clause , please provide the validation/approval from the RM Team'
@@ -435,69 +443,74 @@ const EditForm = observer(class EditFormClass extends React.Component<IEditFormP
                         {this.props.store.priceInvalid}
                     </FormRow>
                 }
-                 {( this.props.store.AgreementType === 'Raw Material Agreement') &&
-          <FormRow label='Please provide the validation/approval from the RM Team'
-            required={true}
-            tooltip='Please provide the validation/approval from the RM Team'
-          >
-            <div className='ms-Grid-row pad-top'>
-                <div className="ms-Grid-col ms-sm12 ms-lg3 ms-formlabel">
-                    <Checkbox checked={this.props.store.RawMaterialDetails}
-                        onChange={(event, isChecked) => this.props.store.RawMaterialDetails = isChecked} 
-                    />
-                </div>
-                <div className="ms-Grid-col ms-sm12 ms-lg9 ms-formlabel">
-                <FilesList
+                {
+                    (this.props.store.AgreementType === 'Raw Material Agreement') &&
+                    <FormRow label='Please provide the validation/approval from the RM Team'
+                        required={true}
+                        tooltip='Please provide the validation/approval from the RM Team'
+                    >
+                        <div className='ms-Grid-row pad-top'>
+                            <div className="ms-Grid-col ms-sm12 ms-lg3 ms-formlabel">
+                                <Checkbox checked={this.props.store.RawMaterialDetails}
+                                    onChange={(event, isChecked) => this.props.store.RawMaterialDetails = isChecked}
+                                />
+                            </div>
+                            <div className="ms-Grid-col ms-sm12 ms-lg9 ms-formlabel">
+                                <FilesList
                                     libraryPath={CONST.libraryPath}
                                     libraryTitle={CONST.libraryTitle}
                                     folder={this.props.id}
                                     contentType={CONST.RMTeamCT}
                                 />
-                    {this.props.store.RawMaterialDetails === true &&
-                      <div id="RMTeam">
-                        <Upload />
-                      </div>
-                    }
-                </div>
-            </div>
-            <ValidationMessage
-              message='Raw material details required'
-              dirty={this.state.dirty}
-              condition={!this.props.store.RawMaterialDetails}
-            />
-          </FormRow>
-        }
-                {this.props.store.AgreementType !== 'Confidentiality Agreement' && this.props.store.AgreementType !== 'Parental Guarantee Agreement' 
-&&<FormRow label='Project Code'>
-                    <TextField
-                        value={this.props.store.ProjectCode}
-                        onChanged={(value) => this.props.store.ProjectCode = value}
-                    />
-                </FormRow>}
-                {this.props.store.AgreementType !== 'Confidentiality Agreement' && this.props.store.AgreementType !== 'Parental Guarantee Agreement' &&
-                <FormRow label='Sourcing Case Number'
-                    required={this.props.store.DecisionType === 'Sourcing Decision'}
-                >
-                    <TextField
+                                {this.props.store.RawMaterialDetails === true &&
+                                    <div id="RMTeam">
+                                        <Upload />
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                        <ValidationMessage
+                            message='Raw material details required'
+                            dirty={this.state.dirty}
+                            condition={!this.props.store.RawMaterialDetails}
+                        />
+                    </FormRow>
+                }
+                {
+                    this.props.store.AgreementType !== 'Confidentiality Agreement' && this.props.store.AgreementType !== 'Parental Guarantee Agreement'
+                    && <FormRow label='Project Code'>
+                        <TextField
+                            value={this.props.store.ProjectCode}
+                            onChanged={(value) => this.props.store.ProjectCode = value}
+                        />
+                    </FormRow>
+                }
+                {
+                    this.props.store.AgreementType !== 'Confidentiality Agreement' && this.props.store.AgreementType !== 'Parental Guarantee Agreement' &&
+                    <FormRow label='Sourcing Case Number'
                         required={this.props.store.DecisionType === 'Sourcing Decision'}
-                        value={this.props.store.SourcingCaseNumber}
-                        onChanged={(value) => this.props.store.SourcingCaseNumber = value}
-                    />
-                    <ValidationMessage
-                        message='Sourcing Case number is required for Sourcing Decision'
-                        dirty={this.state.dirty}
-                        condition={this.props.store.sourcingCaseNumberInvalid === true}
-                    />
-                </FormRow>}
-                
-                
-               
-                
+                    >
+                        <TextField
+                            required={this.props.store.DecisionType === 'Sourcing Decision'}
+                            value={this.props.store.SourcingCaseNumber}
+                            onChanged={(value) => this.props.store.SourcingCaseNumber = value}
+                        />
+                        <ValidationMessage
+                            message='Sourcing Case number is required for Sourcing Decision'
+                            dirty={this.state.dirty}
+                            condition={this.props.store.sourcingCaseNumberInvalid === true}
+                        />
+                    </FormRow>
+                }
 
 
-                
 
-               
+
+
+
+
+
+
 
                 {/* <FormRow label='Amendment'
                     required={true}
@@ -518,41 +531,42 @@ const EditForm = observer(class EditFormClass extends React.Component<IEditFormP
                 </FormRow> */}
 
 
-               
 
-        
-                {this.props.store.AgreementType !== 'Parental Guarantee Agreement' && <FormRow label='Deviation for Agreement Template'
-                    tooltip='Deviation from agreements template, If yes tick the box and attach deviation approvals'
-                >
-                    <div className='ms-Grid-row pad-top'>
-                        <div className="ms-Grid-col ms-sm12 ms-lg12 ms-formlabel">
-                            {/* <Checkbox
+
+
+                {
+                    this.props.store.AgreementType !== 'Parental Guarantee Agreement' && <FormRow label='Deviation for Agreement Template'
+                        tooltip='Deviation from agreements template, If yes tick the box and attach deviation approvals'
+                    >
+                        {/* <div className='ms-Grid-row pad-top'> */}
+                        {/* <div className="ms-Grid-col ms-sm12 ms-lg12 ms-formlabel"> */}
+                        {/* <Checkbox
                                 checked={this.props.store.IsDeviation}
                                 onChange={(event, isChecked) => this.props.store.IsDeviation = isChecked}
                             /> */}
-                            <ChoiceGroup
-                required={true}
-                options={devationOptions} //pass
-                selectedKey={this.props.store.IsDeviation===true?"Deviated from standard template":'No any deviation'}
-                onChange={(event, option) => {
-                  this.props.store.onDeviationTypeSelected(option.key);
-                }}
-                styles={{
-                  root: {
-                    // marginRight: 15, // 在选项之间添加右边距，根据需要调整
-                    width:500
-                  },
+                        <ChoiceGroup
+                            required={true}
+                            options={devationOptions} //pass
+                            selectedKey={this.props.store.IsDeviation === true ? "Deviated from standard template" : 'No any deviation'}
+                            onChange={(event, option) => {
+                                this.props.store.onDeviationTypeSelected(option.key);
+                            }}
+                            styles={{
+                                root: {
+                                    // marginRight: 15, // 在选项之间添加右边距，根据需要调整
+                                    width: 500
+                                },
 
-                  flexContainer: {
-                    display: 'flex',
-                    flexDirection: 'row', // 确保选项横向排列
-                    flexWrap: 'nowrap', // 防止选项换行
-                    overflowX: 'auto', // 允许水平滚动
-                    width: '100%', // 或者更具体的宽度，根据需要调整
-                  },
-                }}
-              />
-                        </div>
+                                flexContainer: {
+                                    display: 'flex',
+                                    flexDirection: 'row', // 确保选项横向排列
+                                    flexWrap: 'nowrap', // 防止选项换行
+                                    overflowX: 'auto', // 允许水平滚动
+                                    width: '100%', // 或者更具体的宽度，根据需要调整
+                                },
+                            }}
+                        />
+                        {/* </div> */}
 
                         {this.props.store.IsDeviation === true &&
                             <div className="ms-Grid-col ms-sm12 ms-lg9 ms-formlabel">
@@ -560,12 +574,14 @@ const EditForm = observer(class EditFormClass extends React.Component<IEditFormP
                                     required={true}
                                     onChanged={(value) => this.props.store.DeviationDetails = value}
                                     value={this.props.store.DeviationDetails}
+                                    placeholder='Input or upload the deviation clauses summary'
                                 />
-                                <ValidationMessage
+                                {/* <ValidationMessage
                                     message='Deviation Details are required'
                                     dirty={this.state.dirty}
                                     condition={this.props.store.deviationInvalid === true}
-                                />
+                                /> */}
+
                                 <FilesList
                                     libraryPath={CONST.libraryPath}
                                     libraryTitle={CONST.libraryTitle}
@@ -577,34 +593,44 @@ const EditForm = observer(class EditFormClass extends React.Component<IEditFormP
                                         enabled={this.props.user.IsAgreementController === false}
                                     />
                                 </div>
+                                {/* <div style={{ paddingLeft: 8 }}> */}
+                                <ValidationMessage
+                                    message='Deviation for Agreement Template are required'
+                                    dirty={this.state.dirty}
+                                    condition={!this.props.store.DevationType}
+
+                                />
+                                {/* </div> */}
                             </div>
                         }
-                    </div>
-                </FormRow>}
-                {this.props.store.AgreementType !== 'Parental Guarantee Agreement' &&
-          <FormRow label='Legal approval on deviated items' required={true}
-          tooltip=''>
- <FilesList
-                                    libraryPath={CONST.libraryPath}
-                                    libraryTitle={CONST.libraryTitle}
-                                    folder={this.props.id}
-                                    contentType={CONST.LegalApproval}
-                                />
-            <div id="LegalApproval">
-              <Upload 
-              //  select={(event) => this.props.store.onSignedAgreementAdded(event)}
-              //  remove={(event) => this.props.store.onSignedAgreementRemoved(event)}
-              enabled={this.props.user.IsAgreementController === false}
-               />
-            </div>
-            {/* <ValidationMessage
-                  message='Deviation Details are required'
-                  dirty={this.state.dirty}
-                  condition={this.props.store.LegalApprovalInvalid === true }
-                /> */}
-        </FormRow>
-        }
-               
+                        {/* </div> */}
+                    </FormRow>
+                }
+                {
+                    this.props.store.AgreementType !== 'Parental Guarantee Agreement' && this.props.store.IsDeviation &&
+                    <FormRow label='Legal approval on deviated items' required={true}
+                        tooltip=''>
+                        <FilesList
+                            libraryPath={CONST.libraryPath}
+                            libraryTitle={CONST.libraryTitle}
+                            folder={this.props.id}
+                            contentType={CONST.LegalApproval}
+                        />
+                        <div id="LegalApproval">
+                            <Upload
+                                select={(event) => this.props.store.onLegalFileAdded(event)}
+                                remove={(event) => this.props.store.onLegalFileRemoved(event)}
+                                enabled={this.props.user.IsAgreementController === false}
+                            />
+                        </div>
+                        <ValidationMessage
+                            message='Legal approval file are required'
+                            dirty={this.state.dirty}
+                            condition={this.props.store.LegalFileInvalid === true}
+                        />
+                    </FormRow>
+                }
+
 
                 {/* <FormRow label='Agreement Signed'
                     tooltip='Tick the brand this agreement is covering. "All" for most global agreements. For price agreements it can be 1 or several brands.'
@@ -622,7 +648,7 @@ const EditForm = observer(class EditFormClass extends React.Component<IEditFormP
                             />
                         </div>
                     </div> */}
-                    {/* <div className='ms-Grid-row pad-top'>
+                {/* <div className='ms-Grid-row pad-top'>
                         <div className="ms-Grid-col ms-sm12 ms-lg3 ms-formlabel">
                             For
             </div>
@@ -637,13 +663,13 @@ const EditForm = observer(class EditFormClass extends React.Component<IEditFormP
                         </div>
                     </div> */}
                 {/* </FormRow> */}
-                <FormRow label='Required Approval' >
+                < FormRow label='Required Approval' >
                     <Label>{this.props.store.approvalLevel}</Label>
-                </FormRow>
-                
+                </FormRow >
 
-                
-                
+
+
+
 
                 {/* <FormRow label='Hide'
                     tooltip='This option is used in order to hide old agreements from VSIB'>
@@ -723,7 +749,7 @@ const EditForm = observer(class EditFormClass extends React.Component<IEditFormP
                     <div className='ms-Grid-row pad-top'>
                         <div className="ms-Grid-col ms-sm12 ms-lg3 ms-formlabel">
                             Name
-                    </div>
+                        </div>
                         <div className="ms-Grid-col ms-sm12 ms-lg9 ms-formlabel">
                             <TextField
                                 required={this.props.store.contactDetailsRequired}
@@ -735,7 +761,7 @@ const EditForm = observer(class EditFormClass extends React.Component<IEditFormP
                     <div className='ms-Grid-row pad-top'>
                         <div className="ms-Grid-col ms-sm12 ms-lg3 ms-formlabel">
                             Phone Number
-                    </div>
+                        </div>
                         <div className="ms-Grid-col ms-sm12 ms-lg9 ms-formlabel">
                             <TextField
                                 required={this.props.store.contactDetailsRequired}
@@ -747,7 +773,7 @@ const EditForm = observer(class EditFormClass extends React.Component<IEditFormP
                     <div className='ms-Grid-row pad-top'>
                         <div className="ms-Grid-col ms-sm12 ms-lg3 ms-formlabel">
                             Company Name
-                    </div>
+                        </div>
                         <div className="ms-Grid-col ms-sm12 ms-lg9 ms-formlabel">
                             <TextField
                                 required={this.props.store.contactDetailsRequired}
@@ -759,7 +785,7 @@ const EditForm = observer(class EditFormClass extends React.Component<IEditFormP
                     <div className='ms-Grid-row pad-top'>
                         <div className="ms-Grid-col ms-sm12 ms-lg3 ms-formlabel">
                             Address
-                    </div>
+                        </div>
                         <div className="ms-Grid-col ms-sm12 ms-lg9 ms-formlabel">
                             <TextField
                                 required={this.props.store.contactDetailsRequired}
@@ -771,7 +797,7 @@ const EditForm = observer(class EditFormClass extends React.Component<IEditFormP
                     <div className='ms-Grid-row pad-top'>
                         <div className="ms-Grid-col ms-sm12 ms-lg3 ms-formlabel">
                             City
-                      </div>
+                        </div>
                         <div className="ms-Grid-col ms-sm12 ms-lg4 ms-formlabel">
                             <TextField
                                 required={this.props.store.contactDetailsRequired}
@@ -781,7 +807,7 @@ const EditForm = observer(class EditFormClass extends React.Component<IEditFormP
                         </div>
                         <div className="ms-Grid-col ms-sm12 ms-lg2 ms-formlabel">
                             Zip Code
-                      </div>
+                        </div>
                         <div className="ms-Grid-col ms-sm12 ms-lg3 ms-formlabel">
                             <TextField
                                 required={this.props.store.contactDetailsRequired}
@@ -793,7 +819,7 @@ const EditForm = observer(class EditFormClass extends React.Component<IEditFormP
                     <div className='ms-Grid-row pad-top'>
                         <div className="ms-Grid-col ms-sm12 ms-lg3 ms-formlabel">
                             Country
-                    </div>
+                        </div>
                         <div className="ms-Grid-col ms-sm12 ms-lg9 ms-formlabel">
                             <TextField
                                 required={this.props.store.contactDetailsRequired}
@@ -837,7 +863,8 @@ const EditForm = observer(class EditFormClass extends React.Component<IEditFormP
                     />
                 </FormRow>
 
-                {this.state.dirty === true && this.props.store.formInvalid &&
+                {
+                    this.state.dirty === true && this.props.store.formInvalid &&
                     <FormRow>
                         <MessageBar
                             messageBarType={MessageBarType.error}
@@ -868,42 +895,42 @@ const EditForm = observer(class EditFormClass extends React.Component<IEditFormP
                                 primary={true}
                                 onClick={() => {
                                     this.makeDirty(() => {
-                                      const requiredEl = document.querySelectorAll('span.required');
-                                      let isInValid = false;
-                                      requiredEl.forEach(val => {
-                                        if(val.innerHTML) {
-                                          isInValid = true;
+                                        const requiredEl = document.querySelectorAll('span.required');
+                                        let isInValid = false;
+                                        requiredEl.forEach(val => {
+                                            if (val.innerHTML) {
+                                                isInValid = true;
+                                            }
+                                        });
+                                        if (!isInValid) {
+                                            const that = this;
+                                            const callback = () => {
+                                                that.props.store.sendForApproval(that.props.history);
+                                            };
+                                            this.props.store.triggerConfirmation(
+                                                "Are you sure you want to send this request for approval?",
+                                                callback
+                                            );
                                         }
-                                      });
-                                      if (!isInValid) {
-                                        const that = this;
-                                        const callback = () => {
-                                          that.props.store.sendForApproval(that.props.history);
-                                        };
-                                        this.props.store.triggerConfirmation(
-                                          "Are you sure you want to send this request for approval?",
-                                          callback
-                                        );
-                                      }
                                     });
-                                    
-                                  }
-                                  }
-                                // onClick={() => {
-                                //     this.makeDirty();
-                                //     if (!this.props.store.formInvalid) {
-                                //         let that = this;
-                                //         let callback =  ()=> {
-                                //             that.props.store.updateForApproval(that.props.id, that.props.history);
-                                //         };
-                                //         this.props.store.triggerConfirmation(
-                                //             "Are you sure you want to send this request for approval?",
-                                //             callback
-                                //         );
-                                //     }
-                                // }
-                                // }
-                                
+
+                                }
+                                }
+                            // onClick={() => {
+                            //     this.makeDirty();
+                            //     if (!this.props.store.formInvalid) {
+                            //         let that = this;
+                            //         let callback =  ()=> {
+                            //             that.props.store.updateForApproval(that.props.id, that.props.history);
+                            //         };
+                            //         this.props.store.triggerConfirmation(
+                            //             "Are you sure you want to send this request for approval?",
+                            //             callback
+                            //         );
+                            //     }
+                            // }
+                            // }
+
                             />
                         }
                         {this.props.user !== null &&
@@ -921,21 +948,22 @@ const EditForm = observer(class EditFormClass extends React.Component<IEditFormP
                                 onClick={() => {
 
                                     this.makeDirty(() => {
-                                      const requiredEl = document.querySelectorAll('span.required');
-                                      let isInValid = false;
-                                      requiredEl.forEach(val => {
-                                        if(val.innerHTML) {
-                                          isInValid = true;
+                                        const requiredEl = document.querySelectorAll('span.required');
+                                        let isInValid = false;
+                                        requiredEl.forEach(val => {
+                                            if (val.innerHTML) {
+                                                isInValid = true;
+                                            }
+                                        });
+                                        if (!isInValid) {
+                                            const that = this;
+                                            const callback = () => {
+                                                that.props.store.saveDraft(that.props.history);
+                                            };
+
                                         }
-                                      });
-                                      if (!isInValid) {
-                                        const that = this;
-                                        const callback = () => {
-                                          that.props.store.saveDraft(that.props.history);
-                                        };
-                                        
-                                      }
-                                  })}}
+                                    })
+                                }}
                             />
                         }
                     </div>
@@ -975,7 +1003,7 @@ const EditForm = observer(class EditFormClass extends React.Component<IEditFormP
                     confirmationNoCallback={this.props.store.confirmationNoCallback}
                     store={this.props.store}
                 />
-            </div>
+            </div >
         );
     }
 });
