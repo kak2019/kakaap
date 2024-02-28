@@ -459,7 +459,7 @@ class AgreementRequestClass {
   }
 
   public get deviationInvalid() {
-    return this.IsDeviation === true && this.DeviationDetails === '' ? true : false;
+    return this.IsDeviation === true && !this.DeviationDetails ? true : false;
   }
 
   public get hideInvalid() {
@@ -479,7 +479,7 @@ class AgreementRequestClass {
   }
 
   get pdDevelopmentInvalid() {
-    return this.AgreementType === 'Development Agreement' && this.DecisionType === decisionTypeOptions[1].key && this.ProductDevelopmentLoginName === '' ? true : false;
+    return this.ProductDevelopmentLoginName === '' ? true : false;
   }
 
   get miscApproverInvalid() {
@@ -490,7 +490,7 @@ class AgreementRequestClass {
   }
 
   public get validDateToInvalid() {
-    return (this.ValidDateTo === null && this.IsPriceOrSoftware === true) ? true : false;
+    return this.ValidDateTo === null ? true : false;
   }
 
   //Reminder Date picker was added to New and Display views, but not to Edit form. The logic below relies on Title property for making ReminderDate not mandatory in Edit view
@@ -532,6 +532,7 @@ class AgreementRequestClass {
 
 
   public get formInvalid() {
+    //return false;
     return this.decisionTypeInvalid
       || this.parmaNumberInvalid
       || this.agreementTypeInvalid
@@ -1416,12 +1417,23 @@ class AgreementRequestClass {
             return contenType.Name === CONST.SignedAgreementCT;
           })[0].StringId;
 
-          const DeviationContentTypeId = result.filter((contenType) => {
+          const LegalApprovalCTid = result.filter((contenType) => {
+            return contenType.Name === CONST.LegalApproval;
+          })[0].StringId;
+          const RMTeamCTid = result.filter((contenType) => {
+            return contenType.Name === CONST.RMTeamCT;
+          })[0].StringId;
+          const PriceCTid = result.filter((contenType) => {
+            return contenType.Name === CONST.PriceCT;
+          })[0].StringId;
+const DeviationContentTypeId = result.filter((contenType) => {
             return contenType.Name === CONST.DeviationCT;
           })[0].StringId;
-
           const signedAgreementInputElements = document.querySelectorAll('#SignedAgreements input');
           const deviationInputElements = document.querySelectorAll('#Deviations input');
+          const LegalApprovalInputElements = document.querySelectorAll('#LegalApproval input');
+          const RMTeamInput = document.querySelectorAll('#RMTeam input');
+          const PriceInput = document.querySelectorAll('#Price input');
 
           const uploadFilesOfContentTypePromises = [];
           uploadFilesOfContentTypePromises.push(
@@ -1429,6 +1441,15 @@ class AgreementRequestClass {
           );
           uploadFilesOfContentTypePromises.push(
             this.uploadFilesOfContentType(folderUrl, deviationInputElements, DeviationContentTypeId)
+          );
+          uploadFilesOfContentTypePromises.push(
+            this.uploadFilesOfContentType(folderUrl, LegalApprovalInputElements, LegalApprovalCTid)
+          );
+          uploadFilesOfContentTypePromises.push(
+            this.uploadFilesOfContentType(folderUrl, RMTeamInput, RMTeamCTid)
+          );
+          uploadFilesOfContentTypePromises.push(
+            this.uploadFilesOfContentType(folderUrl, PriceInput, PriceCTid)
           );
 
           Promise.all(uploadFilesOfContentTypePromises)

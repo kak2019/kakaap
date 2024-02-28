@@ -74,8 +74,8 @@ const NewForm = observer(class NewFormClass extends React.Component<INewFormProp
     this.props.store.getGroupUsers();
   }
 
-  public makeDirty() {
-    this.setState({ dirty: true });
+  public makeDirty(cb?: () => void) {
+    this.setState({ dirty: true }, cb);
   }
 
   public render(): JSX.Element {
@@ -203,40 +203,6 @@ const NewForm = observer(class NewFormClass extends React.Component<INewFormProp
             </div>
           </div>
         </FormRow>
-       
-        <FormRow label='Valid From'
-          required={true}
-          tooltip=''
-        >
-          <DatePicker
-            value={this.props.store.ValidDateFrom}
-            onSelectDate={(date) => {
-              this.props.store.ValidDateFrom = date;
-            }}
-          />
-          <ValidationMessage
-            message='Valid Date from is required'
-            dirty={this.state.dirty}
-            condition={this.props.store.validDateFromInvalid === true}
-          />
-        </FormRow>
-        {
-        ['Confidentiality Agreement', 'Parental Guarantee Agreement', 'Price Agreement', 'Price Agreement Amendment', 'Raw Material Agreement'].some(val => val === this.props.store.AgreementType) 
-        && <FormRow label='Valid To' required={this.props.store.AgreementType !== 'Parental Guarantee Agreement'}
-          tooltip=''>
-          <DatePicker
-            value={this.props.store.ValidDateTo}
-            onSelectDate={(date) => {
-              this.props.store.ValidDateTo = date;
-            }}
-          />
-          <ValidationMessage
-            message='Valid To Date from is required'
-            dirty={this.state.dirty}
-            condition={this.props.store.validDateToInvalid === true}
-          />
-        </FormRow>
-      }
         {
           ['Development Agreement', 'Framework Agreement', 'Miscellaneous Agreement', 'Price Agreement', 'Price Agreement Amendment', 'Raw Material Agreement'].some(val => val === this.props.store.AgreementType) 
             &&<FormRow label='Decision Type'
@@ -266,7 +232,41 @@ const NewForm = observer(class NewFormClass extends React.Component<INewFormProp
             />
           </FormRow>
         }
-        
+        <FormRow label='Valid From'
+          required={true}
+          tooltip=''
+        >
+          <DatePicker
+            value={this.props.store.ValidDateFrom}
+            onSelectDate={(date) => {
+              this.props.store.ValidDateFrom = date;
+            }}
+          />
+          <ValidationMessage
+            message='Valid from Date is required'
+            dirty={this.state.dirty}
+            condition={this.props.store.validDateFromInvalid === true}
+          />
+        </FormRow>
+
+        {
+        ['Confidentiality Agreement', 'Parental Guarantee Agreement', 'Price Agreement', 'Price Agreement Amendment', 'Raw Material Agreement'].some(val => val === this.props.store.AgreementType) 
+        && <FormRow label='Valid To' required={this.props.store.AgreementType !== 'Parental Guarantee Agreement'}
+          tooltip=''>
+          <DatePicker
+            value={this.props.store.ValidDateTo}
+            onSelectDate={(date) => {
+              this.props.store.ValidDateTo = date;
+            }}
+          />
+          <ValidationMessage
+            message='Valid To Date is required'
+            dirty={this.state.dirty}
+            condition={this.props.store.AgreementType !== 'Parental Guarantee Agreement' && this.props.store.validDateToInvalid === true}
+          />
+        </FormRow>
+      }
+
         {(this.store.AgreementType === 'Development Agreement' || this.store.AgreementType === 'Framework Agreement' || this.store.AgreementType === 'Miscellaneous Agreement' || this.store.AgreementType === 'Price Agreement' || this.store.AgreementType === 'Price Agreement Amendment' || this.store.AgreementType === 'Raw Material Agreement') &&
           this.store.DecisionType === decisionTypeOptions[1].key &&   //Non Sourcing Decision
           <FormRow label='Please provide the id or name of the VP for the concerned Engineering department'
@@ -285,25 +285,6 @@ const NewForm = observer(class NewFormClass extends React.Component<INewFormProp
             />
           </FormRow>
         }
-        {this.props.store.AgreementType !== 'Confidentiality Agreement' && this.props.store.AgreementType !== 'Parental Guarantee Agreement' &&<FormRow label='Main Segment Code'
-          required={true}
-          tooltip=''
-        >
-          <SegmentPicker
-            store={this.props.store}
-            onDeselected={this.props.store.onSegmentDeselected}
-            onSelected={this.props.store.onSegmentSelected}
-            defaultValue={this.props.store.onSegmentSelected}
-          />
-          <ValidationMessage
-            message='Main segment code is required'
-            dirty={this.state.dirty}
-            condition={this.props.store.mainSegmentCodeInvalid === true}
-          />
-        </FormRow>}
-        
-
-        
         {/* {this.props.store.AgreementType === 'Miscellaneous Agreement' &&
           <FormRow label='Please provide the email id or name of the Miscellaneous Agreement Approver'
             required={true} tooltip=''
@@ -321,29 +302,7 @@ const NewForm = observer(class NewFormClass extends React.Component<INewFormProp
             />
           </FormRow>
         } */}
-{(this.store.AgreementType === 'Development Agreement' || this.store.AgreementType === 'Framework Agreement' || this.store.AgreementType === 'Miscellaneous Agreement' || this.store.AgreementType === 'Price Agreement' || this.store.AgreementType === 'Price Agreement Amendment' || this.store.AgreementType === 'Raw Material Agreement') &&
-          this.store.DecisionType === decisionTypeOptions[0].key && <FormRow label='Strategic Segment' required={false}
-        // tooltip='Provide Parma number and valid date of the agreement in VSIB which this amendment belongs to.'
-        > <div className='ms-Grid-row pad-top'>
-            <div className="ms-Grid-col ms-sm12 ms-lg3 ms-formlabel">
-              <Checkbox
-                checked={this.props.store.IsstrategicSegment}
-                onChange={(event, isChecked) => this.props.store.IsstrategicSegment = isChecked}
-              />
-            </div>
-          </div>
-          {/* <CheckboxWithTextField
-            checked={this.props.store.IsstrategicSegment}
-            store={this.props.store}
-            checkboxName={'IsstrategicSegment'}
-            textfieldName={'strategicSegmentDetails'}
-          />
-          <ValidationMessage
-            message='Strategic SegmentDetails required when checkbox checked'
-            dirty={this.state.dirty}
-            condition={this.props.store.strategicSegmentInvalid === true}
-          /> */}
-        </FormRow>}
+
         
 {(this.store.AgreementType === 'Development Agreement' || this.store.AgreementType === 'Framework Agreement' || this.store.AgreementType === 'Miscellaneous Agreement' || this.store.AgreementType === 'Price Agreement' || this.store.AgreementType === 'Price Agreement Amendment' || this.store.AgreementType === 'Raw Material Agreement') &&
           this.store.DecisionType === decisionTypeOptions[0].key &&
@@ -383,62 +342,50 @@ const NewForm = observer(class NewFormClass extends React.Component<INewFormProp
 
         {(this.props.store.AgreementType === 'Price Agreement' || this.props.store.AgreementType === 'Price Agreement Amendment') &&
           <FormRow required={false}
-            label='In case the Price Agreement includes Raw Material Clause , please provide the validation/approval from the RM Team'
+            label='In case the Price Agreement includes Raw Material Clause , please provide the validation/approval from the RM Team (hyperlink)'
             tooltip='In case the Price Agreement includes Raw Material Clause , please provide the validation/approval from the RM Team'
           >
-            <CheckboxWithTextField checked={this.props.store.IsPrice}
-              store={this.props.store}
-              checkboxName={'IsPrice'}
-              textfieldName={'PriceDetails'}
-            />
-            <ValidationMessage
-              message='Price details are required when checkbox checked'
-              dirty={this.state.dirty}
-              condition={this.props.store.priceInvalid === true}
-            />
-            {this.props.store.priceInvalid}
-            {/* 这个是复制过来的 需要改 */}
-            <div id="SignedAgreements">
-            <Upload
-              select={(event) => this.props.store.onSignedAgreementAdded(event)}
-              remove={(event) => this.props.store.onSignedAgreementRemoved(event)}
-            />
-          </div>
-          <ValidationMessage
-            message='Signed Agreement document(s) must be enclosed'
-            dirty={this.state.dirty}
-            condition={this.props.store.signedAgreementInvalid === true}
-          />
+            <div className='ms-Grid-row pad-top'>
+                <div className="ms-Grid-col ms-sm12 ms-lg3 ms-formlabel">
+                    <Checkbox checked={this.props.store.IsPrice}
+                        onChange={(event, isChecked) => this.props.store.IsPrice = isChecked} 
+                    />
+                </div>
+                <div className="ms-Grid-col ms-sm12 ms-lg9 ms-formlabel">
+                    {this.props.store.IsPrice === true &&
+                      <div id="Price">
+                        <Upload />
+                      </div>
+                    }
+                </div>
+            </div>
           </FormRow>
         }
 
-        {(  this.props.store.AgreementType === 'Raw Material Agreement') &&
-          <FormRow label='Please provide the validation/approval from the RM Team'
+        {(this.props.store.AgreementType === 'Price Agreement' || this.props.store.AgreementType === 'Price Agreement Amendment' || this.props.store.AgreementType === 'Raw Material Agreement') &&
+          <FormRow label='Please provide the validation/approval from the RM Team (hyperlink)'
             required={true}
             tooltip='Please provide the validation/approval from the RM Team'
           >
-            <TextField
-              required={true}
-              value={this.props.store.RawMaterialDetails}
-              onChanged={(value) => this.props.store.RawMaterialDetails = value}
-            />
+            <div className='ms-Grid-row pad-top'>
+                <div className="ms-Grid-col ms-sm12 ms-lg3 ms-formlabel">
+                    <Checkbox checked={this.props.store.RawMaterialDetails}
+                        onChange={(event, isChecked) => this.props.store.RawMaterialDetails = isChecked} 
+                    />
+                </div>
+                <div className="ms-Grid-col ms-sm12 ms-lg9 ms-formlabel">
+                    {this.props.store.RawMaterialDetails === true &&
+                      <div id="RMTeam">
+                        <Upload />
+                      </div>
+                    }
+                </div>
+            </div>
             <ValidationMessage
               message='Raw material details required'
               dirty={this.state.dirty}
-              condition={this.props.store.rawMaterialInvalid === true}
+              condition={!this.props.store.RawMaterialDetails}
             />
-            {/* 这个是复制过来的 需要改 */}
-            <div id="SignedAgreements">
-            <Upload
-              select={(event) => this.props.store.onSignedAgreementAdded(event)}
-              remove={(event) => this.props.store.onSignedAgreementRemoved(event)}
-            />
-          </div>
-          <ValidationMessage
-            message='Signed Agreement document(s) must be enclosed'
-            dirty={this.state.dirty}
-            condition={this.props.store.signedAgreementInvalid === true}
-          />
           </FormRow>
         }
 
@@ -458,11 +405,127 @@ const NewForm = observer(class NewFormClass extends React.Component<INewFormProp
           />
         </FormRow> */}
 
+{this.props.store.AgreementType !== 'Confidentiality Agreement' && this.props.store.AgreementType !== 'Parental Guarantee' &&<FormRow label='Main Segment Code'
+          required={true}
+          tooltip=''
+        >
+          <SegmentPicker
+            store={this.props.store}
+            onDeselected={this.props.store.onSegmentDeselected}
+            onSelected={this.props.store.onSegmentSelected}
+            defaultValue={this.props.store.onSegmentSelected}
+          />
+          <ValidationMessage
+            message='Main segment code is required'
+            dirty={this.state.dirty}
+            condition={this.props.store.mainSegmentCodeInvalid === true}
+          />
+        </FormRow>}
+        {(this.store.AgreementType === 'Development Agreement' || this.store.AgreementType === 'Framework Agreement' || this.store.AgreementType === 'Miscellaneous Agreement' || this.store.AgreementType === 'Price Agreement' || this.store.AgreementType === 'Price Agreement Amendment' || this.store.AgreementType === 'Raw Material Agreement') &&
+          this.store.DecisionType === decisionTypeOptions[0].key && <FormRow label='Strategic segment' required={false}
+        // tooltip='Provide Parma number and valid date of the agreement in VSIB which this amendment belongs to.'
+        > <div className='ms-Grid-row pad-top'>
+            <div className="ms-Grid-col ms-sm12 ms-lg3 ms-formlabel">
+              <Checkbox
+                checked={this.props.store.IsstrategicSegment}
+                onChange={(event, isChecked) => this.props.store.IsstrategicSegment = isChecked}
+              />
+            </div>
+          </div>
+          {/* <CheckboxWithTextField
+            checked={this.props.store.IsstrategicSegment}
+            store={this.props.store}
+            checkboxName={'IsstrategicSegment'}
+            textfieldName={'strategicSegmentDetails'}
+          />
+          <ValidationMessage
+            message='Strategic SegmentDetails required when checkbox checked'
+            dirty={this.state.dirty}
+            condition={this.props.store.strategicSegmentInvalid === true}
+          /> */}
+        </FormRow>}
+        {this.props.store.Agreement !== 'Parental Agreement' && <FormRow label='Deviation for Agreement Template'
+          tooltip='Deviation from agreements template, If yes tick the box and attach deviation approvals'
+          required={true}
 
-        
-        
+        >
+          <div className='ms-Grid-row pad-top'>
+            <div className="ms-Grid-col ms-sm12 ms-lg12 ms-formlabel">
+              {/* <Checkbox
+                checked={this.props.store.IsDeviation}
+                onChange={(event, isChecked) => this.props.store.IsDeviation = isChecked}
+              /> */}
+              <ChoiceGroup
+                required={true}
+                options={devationOptions} //pass
+                onChange={(event, option) => {
+                  this.props.store.onDeviationTypeSelected(option.key);
+                }}
+                styles={{
+                  root: {
+                    // marginRight: 15, // 在选项之间添加右边距，根据需要调整
+                    width:500
+                  },
 
-        
+                  flexContainer: {
+                    display: 'flex',
+                    flexDirection: 'row', // 确保选项横向排列
+                    flexWrap: 'nowrap', // 防止选项换行
+                    overflowX: 'auto', // 允许水平滚动
+                    width: '100%', // 或者更具体的宽度，根据需要调整
+                  },
+                }}
+              />
+            </div>
+
+            {this.props.store.IsDeviation &&
+              <div className="ms-Grid-col ms-sm12 ms-lg12 ms-formlabel">
+                <TextField
+                  required={true}
+                  onChanged={(value) => this.props.store.DeviationDetails = value}
+                  value={this.props.store.DeviationDetails}
+                />
+                <ValidationMessage
+                  message='Deviation Details are required'
+                  dirty={this.state.dirty}
+                  condition={this.props.store.deviationInvalid === true }
+                />
+                <div id="Deviations">
+                  <Upload />
+                </div>
+              </div>
+            }
+              <ValidationMessage
+                  message='Deviation for Agreement Template are required'
+                  dirty={this.state.dirty}
+                  condition={!this.props.store.DevationType}
+                />
+          </div>
+        </FormRow>}
+
+        {this.props.store.Agreement !== 'Parental Agreement' &&
+          <FormRow label='Legal approval on deviated items' required={true}
+          tooltip=''>
+
+            <div id="LegalApproval">
+              <Upload 
+              //  select={(event) => this.props.store.onSignedAgreementAdded(event)}
+              //  remove={(event) => this.props.store.onSignedAgreementRemoved(event)}
+               />
+            </div>
+            {/* <ValidationMessage
+                  message='Deviation Details are required'
+                  dirty={this.state.dirty}
+                  condition={this.props.store.LegalApprovalInvalid === true }
+                /> */}
+        </FormRow>
+        }
+
+        <FormRow label='Required Approval' required={false}
+          tooltip=''>
+          <Label>{this.props.store.approvalLevel}</Label>
+        </FormRow>
+
         {/* <FormRow label='Agreement Signed' required={false}
           tooltip='Tick the brand this agreement is covering. "All" for most global agreements. For price agreements it can be 1 or several brands.'
         >
@@ -510,11 +573,16 @@ const NewForm = observer(class NewFormClass extends React.Component<INewFormProp
           </FormRow>
         } */}
 
-{this.props.store.AgreementType !== 'Confidentiality Agreement' && this.props.store.AgreementType !== 'Parental Guarantee Agreement' &&<FormRow label='Project Code' required={this.store.DecisionType === decisionTypeOptions[0].key} tooltip=''>
+{this.props.store.AgreementType !== 'Confidentiality Agreement' && this.props.store.AgreementType !== 'Parental Guarantee Agreement' 
+&&<FormRow label='Project Code' required={this.store.DecisionType === decisionTypeOptions[0].key} tooltip=''>
           <TextField
             value={this.props.store.ProjectCode}
             onChanged={(value) => this.props.store.ProjectCode = value}
           />
+          <ValidationMessage message='Project Code is required'
+              dirty={this.state.dirty}
+              condition={this.store.DecisionType === decisionTypeOptions[0].key && !this.props.store.ProjectCode}
+            />
         </FormRow>}
 
         {this.props.store.AgreementType !== 'Confidentiality Agreement' && this.props.store.AgreementType !== 'Parental Guarantee Agreement' && 
@@ -533,83 +601,6 @@ const NewForm = observer(class NewFormClass extends React.Component<INewFormProp
                 />
               </FormRow>
         }
-        {this.props.store.AgreementType !== 'Parental Guarantee Agreement' && <FormRow label='Deviation for Agreement Template'
-          tooltip='Deviation from agreements template, If yes tick the box and attach deviation approvals'
-          required={true}
-
-        >
-          
-          <div className='ms-Grid-row pad-top'>
-            <div className="ms-Grid-col ms-sm12 ms-lg3 ms-formlabel">
-              
-              {/* <Checkbox
-                checked={this.props.store.IsDeviation}
-                onChange={(event, isChecked) => this.props.store.IsDeviation = isChecked}
-              /> */}
-              <ChoiceGroup
-                required={true}
-                options={devationOptions} //pass
-                onChange={(event, option) => this.props.store.onDeviationTypeSelected(option.key)}
-                styles={{
-                  root: {
-                   // marginRight: 15, // 在选项之间添加右边距，根据需要调整
-                    width:500
-                  },
-
-                  flexContainer: {
-                    display: 'flex',
-                    flexDirection: 'row', // 确保选项横向排列
-                    flexWrap: 'nowrap', // 防止选项换行
-                    overflowX: 'auto', // 允许水平滚动
-                    width: '100%', // 或者更具体的宽度，根据需要调整
-                  },
-                }}
-              />
-            </div>
-
-            {this.props.store.IsDeviation === true &&
-              <div className="ms-Grid-col ms-sm12 ms-lg9 ms-formlabel">
-                <TextField
-                  required={true}
-                  onChanged={(value) => this.props.store.DeviationDetails = value}
-                  value={this.props.store.DeviationDetails}
-                />
-                <ValidationMessage
-                  message='Deviation Details are required'
-                  dirty={this.state.dirty}
-                  condition={this.props.store.deviationInvalid === true}
-                />
-                <div id="Deviations">
-                  <Upload />
-                  
-                </div>
-              </div>
-            }
-            
-          </div>
-          
-        </FormRow>}
-        
-
-        {this.props.store.AgreementType !== 'Parental Guarantee Agreement' && <FormRow label='Legal approval on deviated items'
-          required={true} tooltip=''
-        >
-          <div id="LegalApproval">
-            <Upload
-              select={(event) => this.props.store.onSignedAgreementAdded(event)}
-              remove={(event) => this.props.store.onSignedAgreementRemoved(event)}
-            />
-          </div>
-          <ValidationMessage
-            message='Legal approval document(s) must be enclosed'
-            dirty={this.state.dirty}
-            condition={this.props.store.signedAgreementInvalid === true}
-          />
-        </FormRow>}
-        <FormRow label='Required Approval' required={false}
-          tooltip=''>
-          <Label>{this.props.store.approvalLevel}</Label>
-        </FormRow>
 
         {/* <FormRow label='Hide'  required={false} 
           tooltip='This option is used in order to hide old agreements from VSIB'>
@@ -652,7 +643,6 @@ const NewForm = observer(class NewFormClass extends React.Component<INewFormProp
             placeHolder='Select physical storage'
             id='drop'
             options={physicalStorageOptions}
-            selectedKey="Ageo"
             onChanged={(item) => this.props.store.PhysicalStorage = item.key}
           />
           <ValidationMessage
@@ -670,7 +660,6 @@ const NewForm = observer(class NewFormClass extends React.Component<INewFormProp
             placeHolder='Select'
             id='drop'
             options={contactOptions}
-            // selectedKey='Buyer'
             onChanged={(item) => this.props.store.onSelectReturnTo(item.key)}
           />
           <ValidationMessage
@@ -818,17 +807,26 @@ const NewForm = observer(class NewFormClass extends React.Component<INewFormProp
               className='right-aligned'
               primary={true}
               onClick={() => {
-                this.makeDirty();
-                if (!this.props.store.formInvalid) {
-                  const that = this;
-                  const callback = () => {
-                    that.props.store.sendForApproval(that.props.history);
-                  };
-                  this.props.store.triggerConfirmation(
-                    "Are you sure you want to send this request for approval?",
-                    callback
-                  );
-                }
+                this.makeDirty(() => {
+                  const requiredEl = document.querySelectorAll('span.required');
+                  let isInValid = false;
+                  requiredEl.forEach(val => {
+                    if(val.innerHTML) {
+                      isInValid = true;
+                    }
+                  });
+                  if (!isInValid) {
+                    const that = this;
+                    const callback = () => {
+                      that.props.store.sendForApproval(that.props.history);
+                    };
+                    this.props.store.triggerConfirmation(
+                      "Are you sure you want to send this request for approval?",
+                      callback
+                    );
+                  }
+                });
+                
               }
               }
             />
