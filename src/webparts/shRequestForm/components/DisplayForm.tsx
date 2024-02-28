@@ -23,6 +23,9 @@ import ConfirmationBox from './forms/ConfirmationBox';
 import ApproversTable from './forms/ApproversTable';
 import { decisionTypeOptions } from '../../../config/decisionTypeOptions';
 import ConfirmationBoxWithUpload from './forms/ConfirmationBoxWithUploadfile';
+import { devationOptions } from '../../../config/deviationOptions'; // this is for changing checkbox to chioce group 
+import { ChoiceGroup } from 'office-ui-fabric-react';
+import {strategicSegmentOptions} from '../../../config/strategicSegment';
 interface IDisplayFormProps
 {
   store:any;
@@ -139,22 +142,43 @@ const DisplayForm = observer(class DisplayFormClass extends React.Component<IDis
                 <FormRow label='Manager'>
                     <Label>{this.props.store.ManagerName}</Label>
                 </FormRow>
-
-                <FormRow label='Decision Type' >
-                    <Label>{this.props.store.DecisionType}</Label>
-                </FormRow>
-
                 <FormRow label='Parma Number'>
                     <Label>{this.props.store.ParmaNumber}</Label>
                 </FormRow>
+                <FormRow label='Valid From'>
+                    <Label>{kendo.toString(this.props.store.ValidDateFromAsDate,"yyyy-MM-dd")}</Label>
+                </FormRow>
+
+                {
+        ['Confidentiality Agreement', 'Parental Guarantee Agreement', 'Price Agreement', 'Price Agreement Amendment', 'Raw Material Agreement'].some(val => val === this.props.store.AgreementType) 
+        &&<FormRow label='Valid To' >
+                    <Label>
+                        {this.props.store.ValidDateToAsDate!==null
+                        &&
+                            <span>
+                                {kendo.toString(this.props.store.ValidDateToAsDate,"yyyy-MM-dd")}
+                            </span>
+                        }
+
+                    </Label>
+                </FormRow>}
+
+                {['Development Agreement', 'Framework Agreement', 'Miscellaneous Agreement', 'Price Agreement', 'Price Agreement Amendment', 'Raw Material Agreement'].some(val => val === this.props.store.AgreementType) &&<FormRow label='Decision Type' >
+                    <Label>{this.props.store.DecisionType}</Label>
+                </FormRow>}
+                {this.props.store.AgreementType !== 'Confidentiality Agreement' && this.props.store.AgreementType !== 'Parental Guarantee Agreement' &&<FormRow label='Main Segment Code'>
+                    <Label>{this.props.store.MainSegmentCode}</Label>
+                </FormRow>}
+
+                
 
                 <FormRow label='Supplier Name'>
                     <Label>{this.props.store.SupplierName}</Label>
                 </FormRow>
 
-                <FormRow label='Connect Agreement To'>
+                {/* <FormRow label='Connect Agreement To'>
                     <Label>{this.props.store.ConnectAgreementTo}</Label>
-                </FormRow>
+                </FormRow> */}
 
                 <FormRow label='Agreement Type'>
                     <Label>{this.props.store.AgreementType}</Label>
@@ -172,24 +196,30 @@ const DisplayForm = observer(class DisplayFormClass extends React.Component<IDis
                     </FormRow>
                 }
 
-                {this.props.store.AgreementType === 'Miscellaneous Agreement' &&
+                {/* {this.props.store.AgreementType === 'Miscellaneous Agreement' &&
                     <FormRow label='Please provide the email id or name of the Misc Approver'>
                         <Label>{this.props.store.MiscApproverName}</Label>
                     </FormRow>
                 }
-  
-                    {this.props.store.showContractSpend &&
-                    <FormRow label='Contract Spending'>
-                        <Label>{this.props.store.contractSpend}</Label>
-                    </FormRow>
-                }
+   */}
+                  
                 
                     
                     <FormRow label='Yearly spend'>
                         <Label>{this.props.store.YearlySpend}</Label>
                     </FormRow>
-                
-                
+                    {this.props.store.showContractSpend &&
+                    <FormRow label='Contract Spending'>
+                        <Label>{this.props.store.contractSpend}</Label>
+                    </FormRow>
+                }
+                    {this.props.store.AgreementType !== 'Confidentiality Agreement' && this.props.store.AgreementType !== 'Parental Guarantee Agreement' 
+&& <FormRow label='Project Code'>
+                    <Label>{this.props.store.ProjectCode}</Label>
+                </FormRow>}
+                {this.props.store.AgreementType !== 'Confidentiality Agreement' && this.props.store.AgreementType !== 'Parental Guarantee Agreement' && <FormRow label='Sourcing Case Number'>
+                    <Label>{this.props.store.SourcingCaseNumber}</Label>
+                </FormRow>}
 
                 {
                     (this.props.store.AgreementType === 'Price Agreement' || this.props.store.AgreementType === 'Price Agreement Amendment') &&
@@ -221,26 +251,71 @@ const DisplayForm = observer(class DisplayFormClass extends React.Component<IDis
                     
                 </FormRow> */}
 
-                <FormRow label='Main Segment Code'>
-                    <Label>{this.props.store.MainSegmentCode}</Label>
-                </FormRow>
-                {this.props.store.showStrategic && 
-                <FormRow label='Strategic segment'>
-                <Checkbox
+
+
+                {/* {this.props.store.showStrategic &&  */}
+                {(this.props.store.AgreementType === 'Development Agreement' || this.props.store.AgreementType === 'Framework Agreement' || this.props.store.AgreementType === 'Miscellaneous Agreement' || this.props.store.AgreementType === 'Price Agreement' || this.props.store.AgreementType === 'Price Agreement Amendment' || this.props.store.AgreementType === 'Raw Material Agreement') &&
+          this.props.store.DecisionType === decisionTypeOptions[0].key &&  <FormRow label='Strategic segment'>
+                {/* <Checkbox
                         // defaultChecked={this.props.store.IsstrategicSegment}
                         checked={this.props.store.IsstrategicSegment}
                         disabled={true}
-                    />
+                    /> */}
+                     <ChoiceGroup
+                required={true}
+                options={strategicSegmentOptions} //pass
+                selectedKey={this.props.store.IsstrategicSegment===true?'Strategic segment':'Non strategic segment'}
+                // onChange={(event, option) => {
+                //   this.props.store.onStrategicTypeSelected(option.key);
+                // }}
+                styles={{
+                  root: {
+                    // marginRight: 15, // 在选项之间添加右边距，根据需要调整
+                    width:500
+                  },
+
+                  flexContainer: {
+                    display: 'flex',
+                    flexDirection: 'row', // 确保选项横向排列
+                    flexWrap: 'nowrap', // 防止选项换行
+                    overflowX: 'auto', // 允许水平滚动
+                    width: '100%', // 或者更具体的宽度，根据需要调整
+                  },
+                }}
+              />
                     </FormRow>
                     } 
-                <FormRow label='Deviation for Agreement Template'>
+                    
+                {this.props.store.AgreementType !== 'Parental Guarantee Agreement' && <FormRow label='Deviation for Agreement Template'>
                     <div className='ms-Grid-row pad-top'>
-                        <div className="ms-Grid-col ms-sm12 ms-lg3 ms-formlabel">
-                            <Checkbox
+                        <div className="ms-Grid-col ms-sm12 ms-lg12 ms-formlabel">
+                            {/* <Checkbox
                                 //defaultChecked={this.props.store.IsDeviation}
                                 checked={this.props.store.IsDeviation}
                                 disabled={true}
-                            />
+                            /> */}
+                            <ChoiceGroup
+                //required={true}
+                options={devationOptions} //pass
+                selectedKey={this.props.store.IsDeviation===true?"Deviated from standard template":'No any deviation'}
+                // onChange={(event, option) => {
+                //   this.props.store.onDeviationTypeSelected(option.key);
+                // }}
+                styles={{
+                  root: {
+                    // marginRight: 15, // 在选项之间添加右边距，根据需要调整
+                    width:500
+                  },
+
+                  flexContainer: {
+                    display: 'flex',
+                    flexDirection: 'row', // 确保选项横向排列
+                    flexWrap: 'nowrap', // 防止选项换行
+                    overflowX: 'auto', // 允许水平滚动
+                    width: '100%', // 或者更具体的宽度，根据需要调整
+                  },
+                }}
+              />
                         </div>
 
                         {this.props.store.IsDeviation === true &&
@@ -255,11 +330,24 @@ const DisplayForm = observer(class DisplayFormClass extends React.Component<IDis
                             </div>
                         }
                     </div>
-                </FormRow>
-
-                <FormRow label='Required Approval'>
-                    <Label>{this.props.store.approvalLevel}</Label>
-                </FormRow>
+                </FormRow>}
+                {this.props.store.AgreementType !== 'Parental Guarantee Agreement' &&
+          <FormRow label='Legal approval on deviated items' required={true}
+          tooltip=''>
+ <FilesList
+                                    libraryPath={CONST.libraryPath}
+                                    libraryTitle={CONST.libraryTitle}
+                                    folder={this.props.id}
+                                    contentType={CONST.LegalApproval}
+                                />
+            {/* <ValidationMessage
+                  message='Deviation Details are required'
+                  dirty={this.state.dirty}
+                  condition={this.props.store.LegalApprovalInvalid === true }
+                /> */}
+        </FormRow>
+        }
+                
 
                 {/* <FormRow label='Agreement Signed'>
                     <div className='ms-Grid-row pad-top'>
@@ -280,21 +368,7 @@ const DisplayForm = observer(class DisplayFormClass extends React.Component<IDis
                     </div> */}
                 {/* </FormRow> */}
 
-                <FormRow label='Valid From'>
-                    <Label>{kendo.toString(this.props.store.ValidDateFromAsDate,"yyyy-MM-dd")}</Label>
-                </FormRow>
-
-                <FormRow label='Valid To' >
-                    <Label>
-                        {this.props.store.ValidDateToAsDate!==null
-                        &&
-                            <span>
-                                {kendo.toString(this.props.store.ValidDateToAsDate,"yyyy-MM-dd")}
-                            </span>
-                        }
-
-                    </Label>
-                </FormRow>
+                
                 
                 <FormRow label='Reminder Date' >
                     <Label>
@@ -307,14 +381,12 @@ const DisplayForm = observer(class DisplayFormClass extends React.Component<IDis
 
                     </Label>
                 </FormRow>
-
-                <FormRow label='Project Code'>
-                    <Label>{this.props.store.ProjectCode}</Label>
+                <FormRow label='Required Approval'>
+                    <Label>{this.props.store.approvalLevel}</Label>
                 </FormRow>
+              
 
-                <FormRow label='Sourcing Case Number'>
-                    <Label>{this.props.store.SourcingCaseNumber}</Label>
-                </FormRow>
+                
 
                 {/* <FormRow label='Hide'>
                     <Checkbox

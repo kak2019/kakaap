@@ -9,6 +9,7 @@ import { appConfig } from '../config/app.config';
 import { decisionTypeOptions } from '../config/decisionTypeOptions';
 import helpers from '../config/Helpers';
 import { devationOptions } from '../config/deviationOptions';
+import { strategicSegmentOptions } from '../config/strategicSegment';
 
 class AgreementRequestClass {
   // region BASIC PROPERTIES
@@ -23,6 +24,7 @@ class AgreementRequestClass {
   @MobiX.observable private ParmaNumber: any = '';
   @MobiX.observable private DecisionType: any = '';
   @MobiX.observable private DevationType: any = '';
+  @MobiX.observable private StrategicType: any = '';
   @MobiX.observable private SupplierName: any = '';
   @MobiX.observable private ConnectAgreementTo: any = '';
   @MobiX.observable private AgreementType: any = '';
@@ -46,6 +48,7 @@ class AgreementRequestClass {
   @MobiX.observable private AmendmentDetails: any = '';
   @MobiX.observable private MainSegmentCode: any = '';
   @MobiX.observable private IsDeviation: boolean = false;
+  @MobiX.observable private IsStrategicType: boolean = false;
   @MobiX.observable private DeviationDetails: any = '';
   @MobiX.observable private ApprovalLevel: any = '';
   @MobiX.observable private FunctionBy: any = '';
@@ -532,29 +535,29 @@ class AgreementRequestClass {
 
 
   public get formInvalid() {
-    //return false;
-    return this.decisionTypeInvalid
-      || this.parmaNumberInvalid
-      || this.agreementTypeInvalid
-      || this.yearlySpendInvalid
-      || this.amendmentInvalid
-      || this.rawMaterialInvalid
-      || this.priceInvalid
-      || this.mainSegmentCodeInvalid
-      || this.deviationInvalid
-      || this.hideInvalid
-      || this.responsibleBuyerInvalid
-      || this.managerInvalid
-      || this.pdDevelopmentInvalid
-      || this.miscApproverInvalid
-      || this.validDateFromInvalid
-      || this.sourcingCaseNumberInvalid
-      || this.physicalStorageInvalid
-      || this.returnAgreementToInvalid
-      || this.contactDetailsInvalid
-      || this.signedAgreementInvalid
-      || this.validDateToInvalid
-      || this.validReminderDateInvalid;
+    return false;
+    // return this.decisionTypeInvalid
+    //   || this.parmaNumberInvalid
+    //   || this.agreementTypeInvalid
+    //   || this.yearlySpendInvalid
+    //   || this.amendmentInvalid
+    //   || this.rawMaterialInvalid
+    //   || this.priceInvalid
+    //   || this.mainSegmentCodeInvalid
+    //   || this.deviationInvalid
+    //   || this.hideInvalid
+    //   || this.responsibleBuyerInvalid
+    //   || this.managerInvalid
+    //   || this.pdDevelopmentInvalid
+    //   || this.miscApproverInvalid
+    //   || this.validDateFromInvalid
+    //   || this.sourcingCaseNumberInvalid
+    //   || this.physicalStorageInvalid
+    //   || this.returnAgreementToInvalid
+    //   || this.contactDetailsInvalid
+    //   || this.signedAgreementInvalid
+    //   || this.validDateToInvalid
+    //   || this.validReminderDateInvalid;
   }
   // endregion
 
@@ -572,6 +575,7 @@ class AgreementRequestClass {
       this.ParmaNumber = '';
       this.DecisionType = '';
       this.DevationType = '';
+      this.StrategicType ='';
       this.SupplierName = '';
       this.ConnectAgreementTo = '';
       this.AgreementType = '';
@@ -593,6 +597,7 @@ class AgreementRequestClass {
       this.strategicSegmentDetails='';
       this.MainSegmentCode = '';
       this.IsDeviation = false;
+      this.IsStrategicType = false;
       this.DeviationDetails = '';
       this.ApprovalLevel = '';
       this.FunctionBy = '';
@@ -740,10 +745,16 @@ class AgreementRequestClass {
       this.DevationType= value;
       this.IsDeviation = value !== devationOptions[1].key;
     });
-    //   if (value !== devationOptions[1].key) {
-    //     this.IsDeviation = true;
-    // }else{this.IsDeviation = true}});
+
   }
+    //New Add pass
+    public onStrategicTypeSelected(value) {
+      MobiX.runInAction(() => {
+        this.StrategicType= value;
+        this.IsstrategicSegment = value !== strategicSegmentOptions[1].key;
+      });
+    
+    }
 
   public onAgreementTypeSelected(value) {
     MobiX.runInAction(() => {
